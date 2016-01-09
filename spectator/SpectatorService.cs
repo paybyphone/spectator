@@ -34,7 +34,6 @@ namespace spectator
         private void Spectate()
         {
             var metricPrefix = _configuration.MetricPrefix;
-            var performanceCounterSource = new PerformanceCounterSource();
 
             while (!_cancellationTokenSource.IsCancellationRequested)
             {

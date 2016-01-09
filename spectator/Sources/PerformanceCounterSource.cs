@@ -11,7 +11,7 @@ namespace spectator.Sources
             var counter = definition.InstanceName != null ? new PerformanceCounter(definition.CategoryName, definition.CounterName, definition.InstanceName)
                 : new PerformanceCounter(definition.CategoryName, definition.CounterName);
 
-            long rawValue = counter.RawValue;
+            float rawValue = counter.NextValue();
 
             return (int)rawValue;
         }
