@@ -40,7 +40,7 @@ namespace spectator
             {
                 try
                 {
-                    foreach (var metric in _configuration.Metrics)
+                    Parallel.ForEach(_configuration.Metrics, metric =>
                     {
                         var queryableSource = _queryableSourceFactory.Create(metric.Source);
 
@@ -54,7 +54,7 @@ namespace spectator
                                 _publisher.Publish(metricName, sample.Value, metric.Type);
                             }
                         }
-                    }
+                    });
                 }
                 catch (Exception ex)
                 {
