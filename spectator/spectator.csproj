@@ -51,6 +51,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Management" />
     <Reference Include="Topshelf, Version=3.3.154.0, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
       <HintPath>..\packages\Topshelf.3.3.1\lib\net40-full\Topshelf.dll</HintPath>
       <Private>True</Private>
@@ -60,12 +61,18 @@
     <Compile Include="Configuration\ConsulConfiguration.cs" />
     <Compile Include="Configuration\ISpectatorConfiguration.cs" />
     <Compile Include="Configuration\JsonConfiguration.cs" />
+    <Compile Include="Configuration\MetricConfiguration.cs" />
+    <Compile Include="Configuration\MetricSource.cs" />
+    <Compile Include="Configuration\MetricType.cs" />
+    <Compile Include="IStatsdPublisher.cs" />
     <Compile Include="Metrics\MetricDefinition.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sources\IQueryableSource.cs" />
+    <Compile Include="Sources\Number.cs" />
+    <Compile Include="Sources\NumberConverter.cs" />
     <Compile Include="Sources\PerformanceCounterSource.cs" />
-    <Compile Include="Sources\WindowsManagementInstrumentationCounterSource.cs" />
+    <Compile Include="Sources\WindowsManagementInstrumentationSource.cs" />
     <Compile Include="SpectatorService.cs" />
     <Compile Include="StatsdPublisher.cs" />
   </ItemGroup>

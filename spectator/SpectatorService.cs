@@ -2,6 +2,7 @@
 using System.Threading;
 using System.Threading.Tasks;
 using log4net;
+using spectator.Sources;
 
 namespace spectator
 {
@@ -20,24 +21,21 @@ namespace spectator
 
         private void DoWork()
         {
+            var performanceCounterSource = new PerformanceCounterSource();
+
             while (!_cancellationTokenSource.IsCancellationRequested)
             {
-                Console.WriteLine("I am working");
+                try
+                {
+                    var value = performanceCounterSource.QueryValue("Processor\\% Processor Time\\_Total");
+                    Log.Info(value);
+                }
+                catch (Exception ex)
+                {
+                    Log.Error("Error occurred in main spectator loop.", ex);
+                }
 
-                Console.WriteLine("   Step 1");
-                Thread.Sleep(1000);
-
-                Console.WriteLine("   Step 2");
-                Thread.Sleep(1000);
-
-                Console.WriteLine("   Step 3");
-                Thread.Sleep(1000);
-
-                Console.WriteLine("   Step 4");
-                Thread.Sleep(1000);
-
-                Console.WriteLine("   Step 5");
-                Thread.Sleep(1000);
+                Thread.Sleep(2000);
             }
         }
 
