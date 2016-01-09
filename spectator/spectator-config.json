@@ -24,9 +24,21 @@
     },
     {
       "source": "performanceCounter",
+      "path": "\\Processor(_Total)\\% Processor Time",
+      "type": "gauge",
+      "template": "system.processor.percent_processor_time"
+    },
+    {
+      "source": "performanceCounter",
       "path": "\\System\\Processes",
       "type": "gauge",
       "template": "system.processes.total"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\System\\Threads",
+      "type": "gauge",
+      "template": "system.threads.total"
     },
     {
       "source": "performanceCounter",
@@ -80,6 +92,60 @@
       "path": "\\Memory\\Pages/sec",
       "type": "gauge",
       "template": "system.memory.pages_per_sec"
+    },
+    {
+      "source": "windowsManagementInstrumentation",
+      "path": "\\Win32_OperatingSystem\\FreeSpaceInPagingFiles",
+      "type": "gauge",
+      "template": "system.swap.free"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Paging File(_Total)\\% Usage",
+      "type": "gauge",
+      "template": "system.swap.percent_used"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\TCPv4\\Connection Failures",
+      "type": "gauge",
+      "template": "system.network.tcpv4.connection_failures"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\TCPv4\\Connections Active",
+      "type": "gauge",
+      "template": "system.network.tcpv4.connections_active"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\TCPv4\\Connections Established",
+      "type": "gauge",
+      "template": "system.network.tcpv4.connections_established"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\TCPv4\\Connections Passive",
+      "type": "gauge",
+      "template": "system.network.tcpv4.connections_passive"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\TCPv4\\Connections Reset",
+      "type": "gauge",
+      "template": "system.network.tcpv4.connections_reset"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\TCPv4\\Segments Received/sec",
+      "type": "gauge",
+      "template": "system.network.tcpv4.segments_received_per_sec"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\TCPv4\\Segments Sent/sec",
+      "type": "gauge",
+      "template": "system.network.tcpv4.segments_sent_per_sec"
     }
   ]
 }
