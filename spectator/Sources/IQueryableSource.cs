@@ -2,6 +2,6 @@
 {
     public interface IQueryableSource
     {
-        int QueryValue(string path);
+        double QueryValue(string path);
     }
 }

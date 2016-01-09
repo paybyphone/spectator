@@ -1,11 +1,11 @@
-﻿using System.Linq;
+﻿using System;
 using System.Management;
 
 namespace spectator.Sources
 {
     public class WindowsManagementInstrumentationSource : IQueryableSource
     {
-        public int QueryValue(string path)
+        public double QueryValue(string path)
         {
             var definition = new WindowsManagementInstrumentationDefinition(path);
 
@@ -16,32 +16,16 @@ namespace spectator.Sources
                 return GetInfo(managedObject, definition.PropertyName);
             }
 
-            return 0;
+            throw new NotSupportedException();
         }
 
-        private static int GetInfo(ManagementObject managedObject, string property)
+        private static double GetInfo(ManagementObject managedObject, string property)
         {
             object manageObjectProperty = managedObject[property];
 
-            ulong value = (ulong)manageObjectProperty;
-            return (int)value;
+            double value = (ulong)manageObjectProperty;
+
+            return value;
         }
-    }
-
-    internal class WindowsManagementInstrumentationDefinition
-    {
-        private const char KeySeparator = '\\';
-
-        public WindowsManagementInstrumentationDefinition(string key)
-        {
-            var keyTokens = key.Split(KeySeparator);
-
-            QuerySource = keyTokens[0];
-            PropertyName = keyTokens[1];
-        }
-
-        public string QuerySource { get; private set; }
-
-        public string PropertyName { get; private set; }
     }
 }

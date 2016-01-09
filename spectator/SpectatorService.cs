@@ -17,10 +17,10 @@ namespace spectator
 
         private readonly ISpectatorConfiguration _configuration;
         private readonly IQueryableSourceFactory _queryableSourceFactory;
-        private readonly IStatsdPublisher _publisher;
+        private readonly IMetricPublisher _publisher;
         private readonly IMetricFormatter _metricFormatter;
 
-        public SpectatorService(ISpectatorConfiguration configuration, IQueryableSourceFactory queryableSourceFactory, IStatsdPublisher publisher, IMetricFormatter metricFormatter)
+        public SpectatorService(ISpectatorConfiguration configuration, IQueryableSourceFactory queryableSourceFactory, IMetricPublisher publisher, IMetricFormatter metricFormatter)
         {
             _cancellationTokenSource = new CancellationTokenSource();
             _eventLoopTask = new Task(Spectate, _cancellationTokenSource.Token);

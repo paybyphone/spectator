@@ -2,13 +2,19 @@
   "statsdHost": "localhost",
   "statsdPort": 8125,
   "metricPrefix": "net.verrus.{machine}",
-  "interval":  "00:00:01",
+  "interval":  "00:00:05",
   "metrics": [
     {
       "source": "performanceCounter",
       "path": "System\\Processes",
       "type": "gauge",
       "template":  "system.processes.total"
+    },
+    {
+      "source": "windowsManagementInstrumentation",
+      "path": "Win32_ComputerSystem\\TotalPhysicalMemory",
+      "type": "gauge",
+      "template":  "system.memory.total_physical"
     }
   ]
 }

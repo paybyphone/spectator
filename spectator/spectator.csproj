@@ -42,14 +42,19 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=8.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>..\packages\Newtonsoft.Json.8.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+      <HintPath>..\packages\Newtonsoft.Json.8.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="StatsdClient, Version=1.3.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\StatsdCsharpClient.1.3.0.0\lib\net45\StatsdClient.dll</HintPath>
+    <Reference Include="StatsdClient, Version=1.1.26.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StatsdClient.1.1.26\lib\net35\StatsdClient.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="StatsdClient.Configuration, Version=1.1.26.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\StatsdClient.1.1.26\lib\net35\StatsdClient.Configuration.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Management" />
     <Reference Include="Topshelf, Version=3.3.154.0, Culture=neutral, PublicKeyToken=b800c4cfcdeea87b, processorArchitecture=MSIL">
@@ -64,7 +69,7 @@
     <Compile Include="Configuration\MetricConfiguration.cs" />
     <Compile Include="Configuration\MetricSource.cs" />
     <Compile Include="Configuration\MetricType.cs" />
-    <Compile Include="IStatsdPublisher.cs" />
+    <Compile Include="IMetricPublisher.cs" />
     <Compile Include="Metrics\IMetricFormatter.cs" />
     <Compile Include="Metrics\MetricDefinition.cs" />
     <Compile Include="Metrics\MetricFormatter.cs" />
@@ -72,8 +77,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sources\IQueryableSource.cs" />
     <Compile Include="Sources\IQueryableSourceFactory.cs" />
+    <Compile Include="Sources\PerformanceCounterDefinition.cs" />
     <Compile Include="Sources\PerformanceCounterSource.cs" />
     <Compile Include="Sources\QueryableSourceFactory.cs" />
+    <Compile Include="Sources\WindowsManagementInstrumentationDefinition.cs" />
     <Compile Include="Sources\WindowsManagementInstrumentationSource.cs" />
     <Compile Include="SpectatorService.cs" />
     <Compile Include="StatsdPublisher.cs" />
