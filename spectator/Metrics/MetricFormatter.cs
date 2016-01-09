@@ -35,7 +35,6 @@ namespace spectator.Metrics
             char[] charArray = formatted.ToCharArray();
 
             charArray = Array.FindAll(charArray, c => char.IsLetterOrDigit(c)
-                                                      || char.IsWhiteSpace(c)
                                                       || c == '-'
                                                       || c == '_'
                                                       || c == '.');

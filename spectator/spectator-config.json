@@ -76,10 +76,30 @@
       "exclude": "^HarddiskVolume1$"
     },
     {
+      "source": "performanceCounter",
+      "path": "\\LogicalDisk(*)\\Free Megabytes",
+      "type": "gauge",
+      "template": "system.disk.{instance}.free_megabytes",
+      "exclude": "^HarddiskVolume1$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\LogicalDisk(*)\\% Free Space",
+      "type": "gauge",
+      "template": "system.disk.{instance}.percent_free_space",
+      "exclude": "^HarddiskVolume1$"
+    },
+    {
       "source": "windowsManagementInstrumentation",
       "path": "\\Win32_ComputerSystem\\TotalPhysicalMemory",
       "type": "gauge",
       "template": "system.memory.total_physical"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Memory\\Available Bytes",
+      "type": "gauge",
+      "template": "system.memory.available_bytes"
     },
     {
       "source": "performanceCounter",
@@ -100,10 +120,22 @@
       "template": "system.swap.free"
     },
     {
+      "source": "windowsManagementInstrumentation",
+      "path": "\\Win32_OperatingSystem\\TotalVirtualMemorySize",
+      "type": "gauge",
+      "template": "system.swap.total"
+    },
+    {
       "source": "performanceCounter",
       "path": "\\Paging File(_Total)\\% Usage",
       "type": "gauge",
       "template": "system.swap.percent_used"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\System\\System Up Time",
+      "type": "gauge",
+      "template": "system.uptime"
     },
     {
       "source": "performanceCounter",
@@ -146,6 +178,62 @@
       "path": "\\TCPv4\\Segments Sent/sec",
       "type": "gauge",
       "template": "system.network.tcpv4.segments_sent_per_sec"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Network Interface(*)\\Packets Outbound Discarded",
+      "type": "gauge",
+      "template": "system.network.interface.{instance}.packets_outbound_discarded",
+      "exclude": "^(isatap|Teredo).*$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Network Interface(*)\\Packets Outbound Errors",
+      "type": "gauge",
+      "template": "system.network.interface.{instance}.packets_outbound_errors",
+      "exclude": "^(isatap|Teredo).*$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Network Interface(*)\\Packets Sent/sec",
+      "type": "gauge",
+      "template": "system.network.interface.{instance}.packets_sent_per_sec",
+      "exclude": "^(isatap|Teredo).*$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Network Interface(*)\\Bytes Sent/sec",
+      "type": "gauge",
+      "template": "system.network.interface.{instance}.bytes_sent_per_sec",
+      "exclude": "^(isatap|Teredo).*$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Network Interface(*)\\Packets Received Discarded",
+      "type": "gauge",
+      "template": "system.network.interface.{instance}.packets_received_discarded",
+      "exclude": "^(isatap|Teredo).*$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Network Interface(*)\\Packets Received Errors",
+      "type": "gauge",
+      "template": "system.network.interface.{instance}.packets_received_errors",
+      "exclude": "^(isatap|Teredo).*$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Network Interface(*)\\Packets Received/sec",
+      "type": "gauge",
+      "template": "system.network.interface.{instance}.packets_received_per_sec",
+      "exclude": "^(isatap|Teredo).*$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Network Interface(*)\\Packets Received/sec",
+      "type": "gauge",
+      "template": "system.network.interface.{instance}.bytes_received_per_sec",
+      "exclude": "^(isatap|Teredo).*$"
     }
   ]
 }

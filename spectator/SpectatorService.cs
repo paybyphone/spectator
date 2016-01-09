@@ -36,6 +36,8 @@ namespace spectator
         {
             var metricPrefix = _configuration.MetricPrefix;
 
+            Log.InfoFormat("Spectating {0} defined metrics", _configuration.Metrics.Count);
+
             while (!_cancellationTokenSource.IsCancellationRequested)
             {
                 try
@@ -61,6 +63,7 @@ namespace spectator
                     Log.Error("Error occurred in main spectator loop.", ex);
                 }
 
+                Log.DebugFormat("Spectate loop completed, sleeping for '{0}'", _configuration.Interval);
                 Thread.Sleep(_configuration.Interval);
             }
         }

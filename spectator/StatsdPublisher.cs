@@ -1,7 +1,7 @@
 ﻿using System;
 using log4net;
+using spectator.Configuration;
 using StatsdClient;
-using MetricType = spectator.Configuration.MetricType;
 
 namespace spectator
 {
@@ -18,7 +18,7 @@ namespace spectator
 
         public void Publish(string metricName, double metricValue, MetricType type = MetricType.Gauge)
         {
-            Log.InfoFormat("{0} | {1} | {2}", metricName, metricValue, type);
+            Log.DebugFormat("{0} | {1} | {2}", metricName, metricValue, type);
 
             switch (type)
             {
