@@ -4,10 +4,10 @@
     {
         public MetricSource Source { get; set; }
 
-        public string SourceKey { get; set; }
+        public string Path { get; set; }
 
-        public MetricType MetricType { get; set; }
+        public MetricType Type { get; set; }
 
-        public string MetricTemplate { get; set; }
+        public string Template { get; set; }
     }
 }

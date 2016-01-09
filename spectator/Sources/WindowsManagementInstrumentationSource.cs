@@ -5,9 +5,9 @@ namespace spectator.Sources
 {
     public class WindowsManagementInstrumentationSource : IQueryableSource
     {
-        public Number QueryValue(string key)
+        public int QueryValue(string path)
         {
-            var definition = new WindowsManagementInstrumentationDefinition(key);
+            var definition = new WindowsManagementInstrumentationDefinition(path);
 
             var searcher = new ManagementObjectSearcher("select * from " + definition.QuerySource);
 
@@ -16,15 +16,15 @@ namespace spectator.Sources
                 return GetInfo(managedObject, definition.PropertyName);
             }
 
-            return null;
+            return 0;
         }
 
-        private static ulong GetInfo(ManagementObject managedObject, string property)
+        private static int GetInfo(ManagementObject managedObject, string property)
         {
             object manageObjectProperty = managedObject[property];
 
             ulong value = (ulong)manageObjectProperty;
-            return value;
+            return (int)value;
         }
     }
 

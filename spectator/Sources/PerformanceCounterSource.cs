@@ -4,16 +4,16 @@ namespace spectator.Sources
 {
     public class PerformanceCounterSource : IQueryableSource
     {
-        public Number QueryValue(string key)
+        public int QueryValue(string path)
         {
-            var definition = new PerformanceCounterDefinition(key);
+            var definition = new PerformanceCounterDefinition(path);
 
             var counter = definition.InstanceName != null ? new PerformanceCounter(definition.CategoryName, definition.CounterName, definition.InstanceName)
                 : new PerformanceCounter(definition.CategoryName, definition.CounterName);
 
             long rawValue = counter.RawValue;
 
-            return rawValue;
+            return (int)rawValue;
         }
     }
 

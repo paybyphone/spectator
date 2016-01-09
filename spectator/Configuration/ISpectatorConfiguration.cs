@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 
 namespace spectator.Configuration
 {
@@ -6,7 +7,11 @@ namespace spectator.Configuration
     {
         string StatsdHost { get; }
 
+        int StatsdPort { get; }
+
         string MetricPrefix { get; }
+
+        TimeSpan Interval { get; }
 
         IList<MetricConfiguration> Metrics { get; }
     }

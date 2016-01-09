@@ -1,0 +1,14 @@
+{
+  "statsdHost": "localhost",
+  "statsdPort": 8125,
+  "metricPrefix": "net.verrus.{machine}",
+  "interval":  "00:00:05",
+  "metrics": [
+    {
+      "source": "performanceCounter",
+      "path": "Processor\\% Processor Time\\_Total",
+      "type": "gauge",
+      "template":  "system.processor.total_time"
+    }
+  ]
+}

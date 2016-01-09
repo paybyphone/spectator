@@ -1,4 +1,10 @@
-﻿using Topshelf;
+﻿using System.IO;
+using Newtonsoft.Json;
+using spectator.Configuration;
+using spectator.Metrics;
+using spectator.Sources;
+using StatsdClient;
+using Topshelf;
 
 namespace spectator
 {
@@ -10,7 +16,8 @@ namespace spectator
             {
                 hostConfigurator.Service<SpectatorService>(serviceConfigurator =>
                     {
-                        serviceConfigurator.ConstructUsing(() => new SpectatorService());
+                        var configuration = LoadJsonConfiguration();
+                        serviceConfigurator.ConstructUsing(() => new SpectatorService(configuration, new QueryableSourceFactory(), new StatsdPublisher(new Statsd(configuration.StatsdHost, configuration.StatsdPort)), new MetricFormatter()));
                         serviceConfigurator.WhenStarted(myService => myService.Start());
                         serviceConfigurator.WhenStopped(myService => myService.Stop());
                     });
@@ -21,6 +28,13 @@ namespace spectator
                 hostConfigurator.SetDescription("Periodically monitors metrics/statistics and records them to a statsd server.");
                 hostConfigurator.SetServiceName("Spectator");
             });
+        }
+
+        private static ISpectatorConfiguration LoadJsonConfiguration()
+        {
+            var configContents = File.ReadAllText("spectator-config.json");
+
+            return JsonConvert.DeserializeObject<JsonConfiguration>(configContents);
         }
     }
 }
