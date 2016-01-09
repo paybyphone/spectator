@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
 using log4net;
@@ -43,10 +44,16 @@ namespace spectator
                     {
                         var queryableSource = _queryableSourceFactory.Create(metric.Source);
 
-                        var metricValue = queryableSource.QueryValue(metric.Path);
-                        var metricName = _metricFormatter.Format(metricPrefix, metric.Template);
+                        var metricValues = queryableSource.QueryValue(metric.Path);
 
-                        _publisher.Publish(metricName, metricValue, metric.Type);
+                        foreach (var sample in metricValues)
+                        {
+                            if (string.IsNullOrEmpty(metric.Exclude) || !Regex.IsMatch(sample.Instance, metric.Exclude))
+                            {
+                                var metricName = _metricFormatter.Format(metricPrefix, sample.Instance, metric.Template);
+                                _publisher.Publish(metricName, sample.Value, metric.Type);
+                            }
+                        }
                     }
                 }
                 catch (Exception ex)

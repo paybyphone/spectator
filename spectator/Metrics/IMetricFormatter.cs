@@ -2,6 +2,6 @@
 {
     public interface IMetricFormatter
     {
-        string Format(string metricPrefix, string template);
+        string Format(string metricPrefix, string instance, string template);
     }
 }

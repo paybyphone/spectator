@@ -71,7 +71,6 @@
     <Compile Include="Configuration\MetricType.cs" />
     <Compile Include="IMetricPublisher.cs" />
     <Compile Include="Metrics\IMetricFormatter.cs" />
-    <Compile Include="Metrics\MetricDefinition.cs" />
     <Compile Include="Metrics\MetricFormatter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -80,6 +79,7 @@
     <Compile Include="Sources\PerformanceCounterDefinition.cs" />
     <Compile Include="Sources\PerformanceCounterSource.cs" />
     <Compile Include="Sources\QueryableSourceFactory.cs" />
+    <Compile Include="Sources\Sample.cs" />
     <Compile Include="Sources\WindowsManagementInstrumentationDefinition.cs" />
     <Compile Include="Sources\WindowsManagementInstrumentationSource.cs" />
     <Compile Include="SpectatorService.cs" />

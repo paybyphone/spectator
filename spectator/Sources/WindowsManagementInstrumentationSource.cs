@@ -1,11 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Management;
 
 namespace spectator.Sources
 {
     public class WindowsManagementInstrumentationSource : IQueryableSource
     {
-        public double QueryValue(string path)
+        public IEnumerable<Sample> QueryValue(string path)
         {
             var definition = new WindowsManagementInstrumentationDefinition(path);
 
@@ -13,7 +14,7 @@ namespace spectator.Sources
 
             foreach (ManagementObject managedObject in searcher.Get())
             {
-                return GetInfo(managedObject, definition.PropertyName);
+                return new[] { new Sample(string.Empty, GetInfo(managedObject, definition.PropertyName)) };
             }
 
             throw new NotSupportedException();

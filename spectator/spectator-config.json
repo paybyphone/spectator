@@ -6,15 +6,80 @@
   "metrics": [
     {
       "source": "performanceCounter",
-      "path": "System\\Processes",
+      "path": "\\Processor(_Total)\\Interrupts/sec",
       "type": "gauge",
-      "template":  "system.processes.total"
+      "template": "system.processor.interrupts_per_sec"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\System\\Context Switches/sec",
+      "type": "gauge",
+      "template": "system.processor.context_switches_per_sec"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\System\\Processor Queue Length",
+      "type": "gauge",
+      "template": "system.processor.queue_length"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\System\\Processes",
+      "type": "gauge",
+      "template": "system.processes.total"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\LogicalDisk(*)\\Avg. Disk Read Queue Length",
+      "type": "gauge",
+      "template": "system.disk.{instance}.avg_read_queue_length",
+      "exclude": "^HarddiskVolume1$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\LogicalDisk(*)\\Avg. Disk Write Queue Length",
+      "type": "gauge",
+      "template": "system.disk.{instance}.avg_write_queue_length",
+      "exclude": "^HarddiskVolume1$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\LogicalDisk(*)\\Current Disk Queue Length",
+      "type": "gauge",
+      "template": "system.disk.{instance}.queue_length",
+      "exclude": "^HarddiskVolume1$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\LogicalDisk(*)\\Disk Read Bytes/sec",
+      "type": "gauge",
+      "template": "system.disk.{instance}.read_bytes_per_sec",
+      "exclude": "^HarddiskVolume1$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\LogicalDisk(*)\\Disk Write Bytes/sec",
+      "type": "gauge",
+      "template": "system.disk.{instance}.write_bytes_per_sec",
+      "exclude": "^HarddiskVolume1$"
     },
     {
       "source": "windowsManagementInstrumentation",
-      "path": "Win32_ComputerSystem\\TotalPhysicalMemory",
+      "path": "\\Win32_ComputerSystem\\TotalPhysicalMemory",
       "type": "gauge",
-      "template":  "system.memory.total_physical"
+      "template": "system.memory.total_physical"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Memory\\Page Faults/sec",
+      "type": "gauge",
+      "template": "system.memory.page_faults_per_sec"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Memory\\Pages/sec",
+      "type": "gauge",
+      "template": "system.memory.pages_per_sec"
     }
   ]
 }

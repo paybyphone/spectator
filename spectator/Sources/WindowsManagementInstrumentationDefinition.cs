@@ -11,11 +11,11 @@ namespace spectator.Sources
         {
             var keyTokens = key.Split(KeySeparator);
 
-            QuerySource = keyTokens[0];
+            QuerySource = keyTokens[1];
 
             CanOnlyContainAlphanumericOrUnderscore(QuerySource);
 
-            PropertyName = keyTokens[1];
+            PropertyName = keyTokens[2];
         }
 
         private void CanOnlyContainAlphanumericOrUnderscore(string querySource)

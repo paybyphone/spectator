@@ -8,12 +8,14 @@ namespace spectator.Sources
         {
             var keyTokens = key.Split(KeySeparator);
 
-            CategoryName = keyTokens[0];
-            CounterName = keyTokens[1];
+            CategoryName = keyTokens[1];
+            CounterName = keyTokens[2];
 
-            if (keyTokens.Length > 2)
+            if (CategoryName.Contains("(") && CategoryName.Contains(")"))
             {
-                InstanceName = keyTokens[2];
+                var categoryNameTokens = CategoryName.Split('(', ')');
+                CategoryName = categoryNameTokens[0];
+                InstanceName = categoryNameTokens[1];
             }
         }
 
@@ -22,5 +24,10 @@ namespace spectator.Sources
         public string CounterName { get; private set; }
 
         public string InstanceName { get; private set; }
+
+        public bool AllInstances
+        {
+            get { return InstanceName == "*"; }
+        }
     }
 }

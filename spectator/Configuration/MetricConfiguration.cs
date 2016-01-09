@@ -9,5 +9,7 @@
         public MetricType Type { get; set; }
 
         public string Template { get; set; }
+
+        public string Exclude { get; set; }
     }
 }

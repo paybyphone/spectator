@@ -1,7 +1,9 @@
-﻿namespace spectator.Sources
+﻿using System.Collections.Generic;
+
+namespace spectator.Sources
 {
     public interface IQueryableSource
     {
-        double QueryValue(string path);
+        IEnumerable<Sample> QueryValue(string path);
     }
 }
