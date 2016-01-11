@@ -5,11 +5,27 @@ using System.Threading;
 
 namespace spectator.Sources
 {
-    public class PerformanceCounterRegistry
+    public class PerformanceCounterRegistry : IDisposable
     {
+        private static readonly PerformanceCounterRegistry _instance = new PerformanceCounterRegistry();
+
+        // Explicit static constructor to tell C# compiler
+        // not to mark type as beforefieldinit
+        static PerformanceCounterRegistry()
+        {
+        }
+
+        public static PerformanceCounterRegistry Instance
+        {
+            get
+            {
+                return _instance;
+            }
+        }
+
         private readonly ConcurrentDictionary<Tuple<string, string, string>, PerformanceCounter> _registry;
 
-        public PerformanceCounterRegistry()
+        private PerformanceCounterRegistry()
         {
             _registry = new ConcurrentDictionary<Tuple<string, string, string>, PerformanceCounter>();
         }
@@ -24,6 +40,7 @@ namespace spectator.Sources
             {
                 return _registry[lookupKey].NextValue();
             }
+
             var performanceCounter = instance != null
                     ? new PerformanceCounter(categoryName, counterName, instance)
                     : new PerformanceCounter(categoryName, counterName);
@@ -35,6 +52,14 @@ namespace spectator.Sources
             Thread.Sleep(1000);
 
             return performanceCounter.NextValue();
+        }
+
+        public void Dispose()
+        {
+            foreach (var counter in _registry)
+            {
+                counter.Value.Dispose();
+            }
         }
     }
 }

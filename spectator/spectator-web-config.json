@@ -1,0 +1,293 @@
+{
+  "statsdHost": "localhost",
+  "statsdPort": 8125,
+  "metricPrefix": "net.verrus.{machine}",
+  "interval":  "00:00:05",
+  "metrics": [
+    {
+      "source": "performanceCounter",
+      "path": "\\Web Service(*)\\Get Requests/sec",
+      "type": "gauge",
+      "template": "system.iis.web_service.{instance}.get_requests_per_sec"
+	},
+	{
+      "source": "performanceCounter",
+      "path": "\\Web Service(*)\\Post Requests/sec",
+      "type": "gauge",
+      "template": "system.iis.web_service.{instance}.post_requests_per_sec"
+	},
+	{
+      "source": "performanceCounter",
+      "path": "\\Web Service(*)\\Put Requests/sec",
+      "type": "gauge",
+      "template": "system.iis.web_service.{instance}.put_requests_per_sec"
+	},
+	{
+      "source": "performanceCounter",
+      "path": "\\Web Service(*)\\Delete Requests/sec",
+      "type": "gauge",
+      "template": "system.iis.web_service.{instance}.delete_requests_per_sec"
+	},
+	{
+      "source": "performanceCounter",
+      "path": "\\Web Service(*)\\Options Requests/sec",
+      "type": "gauge",
+      "template": "system.iis.web_service.{instance}.options_requests_per_sec"
+	},
+    {
+      "source": "performanceCounter",
+      "path": "\\ASP.NET\\Requests Queued",
+      "type": "gauge",
+      "template": "system.iis.asp_net.requests_queued"
+	},
+    {
+      "source": "performanceCounter",
+      "path": "\\ASP.NET\\Request Wait Time",
+      "type": "gauge",
+      "template": "system.iis.asp_net.request_wait_time"
+	},
+    {
+      "source": "performanceCounter",
+      "path": "\\ASP.NET\\Application Restarts",
+      "type": "gauge",
+      "template": "system.iis.asp_net.application_restarts"
+	},
+    {
+      "source": "performanceCounter",
+      "path": "\\ASP.NET Applications(*)\\Requests/Sec",
+      "type": "gauge",
+      "template": "system.iis.asp_net.{instance}.requests_per_sec"
+	},
+    {
+      "source": "performanceCounter",
+      "path": "\\Processor(_Total)\\Interrupts/sec",
+      "type": "gauge",
+      "template": "system.processor.interrupts_per_sec"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\System\\Context Switches/sec",
+      "type": "gauge",
+      "template": "system.processor.context_switches_per_sec"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\System\\Processor Queue Length",
+      "type": "gauge",
+      "template": "system.processor.queue_length"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Processor(_Total)\\% Processor Time",
+      "type": "gauge",
+      "template": "system.processor.percent_processor_time"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\System\\Processes",
+      "type": "gauge",
+      "template": "system.processes.total"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\System\\Threads",
+      "type": "gauge",
+      "template": "system.threads.total"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\LogicalDisk(*)\\Avg. Disk Read Queue Length",
+      "type": "gauge",
+      "template": "system.disk.{instance}.avg_read_queue_length",
+      "exclude": "^HarddiskVolume1$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\LogicalDisk(*)\\Avg. Disk Write Queue Length",
+      "type": "gauge",
+      "template": "system.disk.{instance}.avg_write_queue_length",
+      "exclude": "^HarddiskVolume1$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\LogicalDisk(*)\\Current Disk Queue Length",
+      "type": "gauge",
+      "template": "system.disk.{instance}.queue_length",
+      "exclude": "^HarddiskVolume1$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\LogicalDisk(*)\\Disk Read Bytes/sec",
+      "type": "gauge",
+      "template": "system.disk.{instance}.read_bytes_per_sec",
+      "exclude": "^HarddiskVolume1$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\LogicalDisk(*)\\Disk Write Bytes/sec",
+      "type": "gauge",
+      "template": "system.disk.{instance}.write_bytes_per_sec",
+      "exclude": "^HarddiskVolume1$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\LogicalDisk(*)\\Free Megabytes",
+      "type": "gauge",
+      "template": "system.disk.{instance}.free_megabytes",
+      "exclude": "^HarddiskVolume1$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\LogicalDisk(*)\\% Free Space",
+      "type": "gauge",
+      "template": "system.disk.{instance}.percent_free_space",
+      "exclude": "^HarddiskVolume1$"
+    },
+    {
+      "source": "windowsManagementInstrumentation",
+      "path": "\\Win32_ComputerSystem\\TotalPhysicalMemory",
+      "type": "gauge",
+      "template": "system.memory.total_physical"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Memory\\Available Bytes",
+      "type": "gauge",
+      "template": "system.memory.available_bytes"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Memory\\Page Faults/sec",
+      "type": "gauge",
+      "template": "system.memory.page_faults_per_sec"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Memory\\Pages/sec",
+      "type": "gauge",
+      "template": "system.memory.pages_per_sec"
+    },
+    {
+      "source": "windowsManagementInstrumentation",
+      "path": "\\Win32_OperatingSystem\\FreeSpaceInPagingFiles",
+      "type": "gauge",
+      "template": "system.swap.free"
+    },
+    {
+      "source": "windowsManagementInstrumentation",
+      "path": "\\Win32_OperatingSystem\\TotalVirtualMemorySize",
+      "type": "gauge",
+      "template": "system.swap.total"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Paging File(_Total)\\% Usage",
+      "type": "gauge",
+      "template": "system.swap.percent_used"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\System\\System Up Time",
+      "type": "gauge",
+      "template": "system.uptime"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\TCPv4\\Connection Failures",
+      "type": "gauge",
+      "template": "system.network.tcpv4.connection_failures"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\TCPv4\\Connections Active",
+      "type": "gauge",
+      "template": "system.network.tcpv4.connections_active"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\TCPv4\\Connections Established",
+      "type": "gauge",
+      "template": "system.network.tcpv4.connections_established"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\TCPv4\\Connections Passive",
+      "type": "gauge",
+      "template": "system.network.tcpv4.connections_passive"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\TCPv4\\Connections Reset",
+      "type": "gauge",
+      "template": "system.network.tcpv4.connections_reset"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\TCPv4\\Segments Received/sec",
+      "type": "gauge",
+      "template": "system.network.tcpv4.segments_received_per_sec"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\TCPv4\\Segments Sent/sec",
+      "type": "gauge",
+      "template": "system.network.tcpv4.segments_sent_per_sec"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Network Interface(*)\\Packets Outbound Discarded",
+      "type": "gauge",
+      "template": "system.network.interface.{instance}.packets_outbound_discarded",
+      "exclude": "^(isatap|Teredo).*$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Network Interface(*)\\Packets Outbound Errors",
+      "type": "gauge",
+      "template": "system.network.interface.{instance}.packets_outbound_errors",
+      "exclude": "^(isatap|Teredo).*$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Network Interface(*)\\Packets Sent/sec",
+      "type": "gauge",
+      "template": "system.network.interface.{instance}.packets_sent_per_sec",
+      "exclude": "^(isatap|Teredo).*$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Network Interface(*)\\Bytes Sent/sec",
+      "type": "gauge",
+      "template": "system.network.interface.{instance}.bytes_sent_per_sec",
+      "exclude": "^(isatap|Teredo).*$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Network Interface(*)\\Packets Received Discarded",
+      "type": "gauge",
+      "template": "system.network.interface.{instance}.packets_received_discarded",
+      "exclude": "^(isatap|Teredo).*$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Network Interface(*)\\Packets Received Errors",
+      "type": "gauge",
+      "template": "system.network.interface.{instance}.packets_received_errors",
+      "exclude": "^(isatap|Teredo).*$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Network Interface(*)\\Packets Received/sec",
+      "type": "gauge",
+      "template": "system.network.interface.{instance}.packets_received_per_sec",
+      "exclude": "^(isatap|Teredo).*$"
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\Network Interface(*)\\Packets Received/sec",
+      "type": "gauge",
+      "template": "system.network.interface.{instance}.bytes_received_per_sec",
+      "exclude": "^(isatap|Teredo).*$"
+    }
+  ]
+}

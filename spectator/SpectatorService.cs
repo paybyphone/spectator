@@ -79,6 +79,8 @@ namespace spectator
             _cancellationTokenSource.Cancel();
             _eventLoopTask.Wait();
 
+            PerformanceCounterRegistry.Instance.Dispose();
+
             Log.Info("Spectator service stopped.");
         }
     }

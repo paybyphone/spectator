@@ -10,14 +10,19 @@ namespace spectator.Sources
         {
             var definition = new WindowsManagementInstrumentationDefinition(path);
 
-            var searcher = new ManagementObjectSearcher("select * from " + definition.QuerySource);
-
-            foreach (ManagementObject managedObject in searcher.Get())
+            using (var searcher = new ManagementObjectSearcher("select * from " + definition.QuerySource))
             {
-                return new[] { new Sample(string.Empty, GetInfo(managedObject, definition.PropertyName)) };
-            }
+                foreach (ManagementObject managedObject in searcher.Get())
+                {
+                    var value = GetInfo(managedObject, definition.PropertyName);
 
-            throw new NotSupportedException();
+                    managedObject.Dispose();
+
+                    return new[] {new Sample(string.Empty, value)};
+                }
+
+                throw new NotSupportedException();
+            }
         }
 
         private static double GetInfo(ManagementObject managedObject, string property)
