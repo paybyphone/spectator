@@ -13,7 +13,7 @@ namespace spectator.Configuration
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly JsonConfiguration _innerConfiguration;
-        private string _configContents;
+        private readonly string _configContents;
 
         public ConsulConfiguration(string host, string key)
         {

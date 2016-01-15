@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
+using spectator.Infrastructure;
 
 namespace spectator.Metrics
 {
-    public class MetricFormatter : IMetricFormatter
+    public sealed class MetricFormatter : IMetricFormatter
     {
         private readonly IDictionary<string, string> _registeredReplacements = new Dictionary<string, string>
             {
@@ -13,7 +14,7 @@ namespace spectator.Metrics
 
         public string Format(string metricPrefix, string instance, string template)
         {
-            var formatted = (!string.IsNullOrEmpty(metricPrefix) ? metricPrefix + "." : "") + template;
+            var formatted = (!metricPrefix.IsNullOrEmpty() ? metricPrefix + "." : "") + template;
 
             formatted = FormatTemplatedValues(formatted);
             formatted = FormatInstanceName(instance, formatted);
@@ -28,6 +29,7 @@ namespace spectator.Metrics
             {
                 formatted = formatted.Replace("{" + replacement.Key + "}", replacement.Value.ToLowerInvariant());
             }
+
             return formatted;
         }
 
@@ -37,6 +39,7 @@ namespace spectator.Metrics
             {
                 formatted = formatted.Replace("{instance}", instance.ToLowerInvariant());
             }
+
             return formatted;
         }
 
@@ -45,9 +48,9 @@ namespace spectator.Metrics
             char[] charArray = formatted.ToCharArray();
 
             charArray = Array.FindAll(charArray, c => char.IsLetterOrDigit(c)
-                                                      || c == '-'
-                                                      || c == '_'
-                                                      || c == '.');
+                                                   || c == '-'
+                                                   || c == '_'
+                                                   || c == '.');
             return new string(charArray);
         }
     }

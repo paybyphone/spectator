@@ -8,5 +8,10 @@ namespace spectator.Tests
         {
             return string.Empty;
         }
+
+        public static double Double()
+        {
+            return 42d;
+        }
     }
 }

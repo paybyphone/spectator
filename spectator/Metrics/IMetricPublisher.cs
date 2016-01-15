@@ -1,6 +1,6 @@
 ﻿using spectator.Configuration;
 
-namespace spectator
+namespace spectator.Metrics
 {
     public interface IMetricPublisher
     {

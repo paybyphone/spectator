@@ -3,7 +3,7 @@ using log4net;
 using spectator.Configuration;
 using StatsdClient;
 
-namespace spectator
+namespace spectator.Metrics
 {
     public class StatsdPublisher : IMetricPublisher
     {
