@@ -13,7 +13,7 @@ namespace spectator.Metrics
 
         public string Format(string metricPrefix, string instance, string template)
         {
-            var formatted = metricPrefix + "." + template;
+            var formatted = (!string.IsNullOrEmpty(metricPrefix) ? metricPrefix + "." : "") + template;
 
             formatted = FormatTemplatedValues(formatted);
             formatted = FormatInstanceName(instance, formatted);

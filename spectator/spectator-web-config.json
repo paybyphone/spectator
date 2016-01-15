@@ -2,62 +2,68 @@
   "statsdHost": "localhost",
   "statsdPort": 8125,
   "metricPrefix": "net.verrus.{machine}",
-  "interval":  "00:00:05",
+  "interval": "00:00:05",
   "metrics": [
     {
       "source": "performanceCounter",
       "path": "\\Web Service(*)\\Get Requests/sec",
       "type": "gauge",
       "template": "system.iis.web_service.{instance}.get_requests_per_sec"
-	},
-	{
+    },
+    {
       "source": "performanceCounter",
       "path": "\\Web Service(*)\\Post Requests/sec",
       "type": "gauge",
       "template": "system.iis.web_service.{instance}.post_requests_per_sec"
-	},
-	{
+    },
+    {
       "source": "performanceCounter",
       "path": "\\Web Service(*)\\Put Requests/sec",
       "type": "gauge",
       "template": "system.iis.web_service.{instance}.put_requests_per_sec"
-	},
-	{
+    },
+    {
       "source": "performanceCounter",
       "path": "\\Web Service(*)\\Delete Requests/sec",
       "type": "gauge",
       "template": "system.iis.web_service.{instance}.delete_requests_per_sec"
-	},
-	{
+    },
+    {
       "source": "performanceCounter",
       "path": "\\Web Service(*)\\Options Requests/sec",
       "type": "gauge",
       "template": "system.iis.web_service.{instance}.options_requests_per_sec"
-	},
+    },
     {
       "source": "performanceCounter",
       "path": "\\ASP.NET\\Requests Queued",
       "type": "gauge",
       "template": "system.iis.asp_net.requests_queued"
-	},
+    },
     {
       "source": "performanceCounter",
       "path": "\\ASP.NET\\Request Wait Time",
       "type": "gauge",
       "template": "system.iis.asp_net.request_wait_time"
-	},
+    },
     {
       "source": "performanceCounter",
       "path": "\\ASP.NET\\Application Restarts",
       "type": "gauge",
       "template": "system.iis.asp_net.application_restarts"
-	},
+    },
     {
       "source": "performanceCounter",
       "path": "\\ASP.NET Applications(*)\\Requests/Sec",
       "type": "gauge",
       "template": "system.iis.asp_net.{instance}.requests_per_sec"
-	},
+    },
+    {
+      "source": "performanceCounter",
+      "path": "\\ASP.NET Applications(*)\\Managed Memory Used (estimated)",
+      "type": "gauge",
+      "template": "system.iis.asp_net.{instance}.managed_memory_used"
+    },
     {
       "source": "performanceCounter",
       "path": "\\Processor(_Total)\\Interrupts/sec",

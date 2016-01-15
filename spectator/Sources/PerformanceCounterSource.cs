@@ -16,12 +16,22 @@ namespace spectator.Sources
 
                 foreach (var instance in instances)
                 {
-                    yield return new Sample(instance, PerformanceCounterRegistry.Instance.Read(definition.CategoryName, definition.CounterName, instance));
+                    var value = PerformanceCounterRegistry.Instance.Read(definition.CategoryName, definition.CounterName, instance);
+
+                    if (value.HasValue)
+                    {
+                        yield return new Sample(instance, value.Value);
+                    }
                 }
             }
             else
             {
-                yield return new Sample(definition.InstanceName, PerformanceCounterRegistry.Instance.Read(definition.CategoryName, definition.CounterName, definition.InstanceName));
+                var value = PerformanceCounterRegistry.Instance.Read(definition.CategoryName, definition.CounterName, definition.InstanceName);
+
+                if (value.HasValue)
+                {
+                    yield return new Sample(definition.InstanceName, value.Value);
+                }
             }
         }
     }

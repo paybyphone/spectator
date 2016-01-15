@@ -1,5 +1,7 @@
-﻿using System.Configuration;
+﻿using System;
+using System.Configuration;
 using System.IO;
+using log4net;
 using Newtonsoft.Json;
 using spectator.Configuration;
 using spectator.Metrics;
@@ -11,6 +13,9 @@ namespace spectator
 {
     public class Program
     {
+        private const string SpectatorConfigFile = @"spectator-config.json";
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public static void Main(string[] args)
         {
             HostFactory.Run(hostConfigurator =>
@@ -40,10 +45,21 @@ namespace spectator
             {
                 var consulKey = ConfigurationManager.AppSettings["Spectator.ConsulKey"];
 
-                return new ConsulConfiguration(consulHost, consulKey);
+                try
+                {
+                    var config = new ConsulConfiguration(consulHost, consulKey);
+
+                    config.Save(SpectatorConfigFile);
+
+                    return config;
+                }
+                catch (Exception ex)
+                {
+                    Log.Warn(string.Format("Exception occurred while obtaining configuration from consul at '{0}' (key: '{1}'). Will fallback to using locally stored JSON configuration.", consulHost, consulKey), ex);
+                }
             }
 
-            var configContents = File.ReadAllText("spectator-config.json");
+            var configContents = File.ReadAllText(SpectatorConfigFile);
 
             return JsonConvert.DeserializeObject<JsonConfiguration>(configContents);
         }

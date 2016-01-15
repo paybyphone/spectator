@@ -30,7 +30,7 @@ namespace spectator.Sources
             _registry = new ConcurrentDictionary<Tuple<string, string, string>, PerformanceCounter>();
         }
 
-        public float Read(string categoryName, string counterName, string instance)
+        public float? Read(string categoryName, string counterName, string instance)
         {
             var lookupKey = new Tuple<string, string, string>(categoryName, counterName, instance);
 
@@ -49,9 +49,7 @@ namespace spectator.Sources
 
             performanceCounter.NextValue();
 
-            Thread.Sleep(1000);
-
-            return performanceCounter.NextValue();
+            return null;
         }
 
         public void Dispose()
