@@ -11,6 +11,11 @@ namespace spectator.Sources
         {
             var keyTokens = key.Split(KeySeparator);
 
+            if (keyTokens.Length < 3)
+            {
+                throw new ArgumentException("'key' must contain a QuerySource and PropertyName", key);
+            }
+
             QuerySource = keyTokens[1];
 
             CanOnlyContainAlphanumericOrUnderscore(QuerySource);

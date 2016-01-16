@@ -50,10 +50,12 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Infrastructure\FileAdapterTests.cs" />
     <Compile Include="Metrics\MetricFormatterTests.cs" />
     <Compile Include="Metrics\StatsdPublisherTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Some.cs" />
+    <Compile Include="Sources\PerformanceCounterDefinitionTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
@@ -61,8 +63,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Configuration\" />
-    <Folder Include="Infrastructure\" />
-    <Folder Include="Sources\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\spectator\spectator.csproj">
