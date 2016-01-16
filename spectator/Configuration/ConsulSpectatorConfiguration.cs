@@ -1,21 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Text;
 using Consul;
 using log4net;
 using Newtonsoft.Json;
+using spectator.Infrastructure;
 
 namespace spectator.Configuration
 {
-    public class ConsulConfiguration : ISpectatorConfiguration
+    public class ConsulSpectatorConfiguration : ISpectatorConfiguration
     {
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private readonly JsonConfiguration _innerConfiguration;
+        private readonly JsonSpectatorConfiguration _innerConfiguration;
         private readonly string _configContents;
 
-        public ConsulConfiguration(string host, string key)
+        public ConsulSpectatorConfiguration(string host, string key)
         {
             var client = new Client(new ConsulClientConfiguration { Address = host });
 
@@ -24,12 +24,7 @@ namespace spectator.Configuration
 
             Log.InfoFormat("Using configuration read from consul host '{0}', in key '{1}'", host, key);
 
-            _innerConfiguration = JsonConvert.DeserializeObject<JsonConfiguration>(_configContents);
-        }
-
-        public void Save(string destination)
-        {
-            File.WriteAllText(destination, _configContents, Encoding.UTF8);
+            _innerConfiguration = JsonConvert.DeserializeObject<JsonSpectatorConfiguration>(_configContents);
         }
 
         public string StatsdHost { get { return _innerConfiguration.StatsdHost; } }
@@ -41,5 +36,20 @@ namespace spectator.Configuration
         public TimeSpan Interval { get { return _innerConfiguration.Interval; } }
 
         public IList<MetricConfiguration> Metrics { get { return _innerConfiguration.Metrics; } }
+
+        private void Save(string destinationPath)
+        {
+            var fileAdapter = new FileAdapter();
+            fileAdapter.WriteAllText(destinationPath, _configContents);
+        }
+
+        public static ISpectatorConfiguration LoadFrom(string host, string key, string saveTo)
+        {
+            var config = new ConsulSpectatorConfiguration(host, key);
+
+            config.Save(saveTo);
+
+            return config;
+        }
     }
 }

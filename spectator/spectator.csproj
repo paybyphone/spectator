@@ -64,9 +64,9 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\ConsulConfiguration.cs" />
+    <Compile Include="Configuration\ConsulSpectatorConfiguration.cs" />
     <Compile Include="Configuration\ISpectatorConfiguration.cs" />
-    <Compile Include="Configuration\JsonConfiguration.cs" />
+    <Compile Include="Configuration\JsonSpectatorConfiguration.cs" />
     <Compile Include="Configuration\MetricConfiguration.cs" />
     <Compile Include="Configuration\MetricSource.cs" />
     <Compile Include="Configuration\MetricType.cs" />

@@ -7,11 +7,11 @@ using log4net.Config;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("spectator")]
-[assembly: AssemblyDescription("")]
+[assembly: AssemblyDescription("Agent windows service for monitoring system metrics and sending them to a statsd-compatible server")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("")]
+[assembly: AssemblyCompany("Phillip Wong")]
 [assembly: AssemblyProduct("spectator")]
-[assembly: AssemblyCopyright("Copyright ©  2016")]
+[assembly: AssemblyCopyright("Copyright © 2016")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
