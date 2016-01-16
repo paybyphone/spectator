@@ -55,7 +55,12 @@
     <Compile Include="Metrics\StatsdPublisherTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Some.cs" />
+    <Compile Include="Sources\QueryableSourceFactoryTests.cs" />
+    <Compile Include="Sources\SampleTests.cs" />
+    <Compile Include="Sources\WindowsManagementInstrumentationDefinitionTests.cs" />
     <Compile Include="Sources\PerformanceCounterDefinitionTests.cs" />
+    <Compile Include="SpectatorServiceTestHarness.cs" />
+    <Compile Include="SpectatorServiceTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />

@@ -1,26 +1,15 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Diagnostics;
-using System.Threading;
 
 namespace spectator.Sources
 {
     public class PerformanceCounterRegistry : IDisposable
     {
-        private static readonly PerformanceCounterRegistry _instance = new PerformanceCounterRegistry();
+        public static readonly PerformanceCounterRegistry Instance = new PerformanceCounterRegistry();
 
-        // Explicit static constructor to tell C# compiler
-        // not to mark type as beforefieldinit
         static PerformanceCounterRegistry()
         {
-        }
-
-        public static PerformanceCounterRegistry Instance
-        {
-            get
-            {
-                return _instance;
-            }
         }
 
         private readonly ConcurrentDictionary<Tuple<string, string, string>, PerformanceCounter> _registry;

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Linq;
+using spectator.Infrastructure;
 
 namespace spectator.Sources
 {
@@ -7,13 +8,15 @@ namespace spectator.Sources
     {
         private const char KeySeparator = '\\';
 
-        public WindowsManagementInstrumentationDefinition(string key)
+        public WindowsManagementInstrumentationDefinition(string path)
         {
-            var keyTokens = key.Split(KeySeparator);
+            Must.NotBeNull(() => path);
+
+            var keyTokens = path.Split(KeySeparator);
 
             if (keyTokens.Length < 3)
             {
-                throw new ArgumentException("'key' must contain a QuerySource and PropertyName", key);
+                throw new ArgumentException("'path' must contain a QuerySource and PropertyName", path);
             }
 
             QuerySource = keyTokens[1];

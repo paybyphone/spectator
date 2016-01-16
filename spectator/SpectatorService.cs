@@ -24,7 +24,7 @@ namespace spectator
         public SpectatorService(ISpectatorConfiguration configuration, IQueryableSourceFactory queryableSourceFactory, IMetricPublisher publisher, IMetricFormatter metricFormatter)
         {
             _cancellationTokenSource = new CancellationTokenSource();
-            _eventLoopTask = new Task(Spectate, _cancellationTokenSource.Token);
+            _eventLoopTask = new Task(BeginSpectating, _cancellationTokenSource.Token);
 
             _configuration = configuration;
             _queryableSourceFactory = queryableSourceFactory;
@@ -32,39 +32,44 @@ namespace spectator
             _metricFormatter = metricFormatter;
         }
 
-        private void Spectate()
+        private void BeginSpectating()
         {
-            var metricPrefix = _configuration.MetricPrefix;
-
             Log.InfoFormat("Spectating {0} defined metrics", _configuration.Metrics.Count);
 
             while (!_cancellationTokenSource.IsCancellationRequested)
             {
-                try
+                Spectate();
+
+                Log.DebugFormat("Spectate loop completed, waiting for '{0}' until next loop", _configuration.Interval);
+                _cancellationTokenSource.Token.WaitHandle.WaitOne(_configuration.Interval);
+            }
+        }
+
+        protected void Spectate()
+        {
+            var metricPrefix = _configuration.MetricPrefix;
+
+            try
+            {
+                Parallel.ForEach(_configuration.Metrics, metric =>
                 {
-                    Parallel.ForEach(_configuration.Metrics, metric =>
+                    var queryableSource = _queryableSourceFactory.Create(metric.Source);
+
+                    var metricValues = queryableSource.QueryValue(metric.Path);
+
+                    foreach (var sample in metricValues)
                     {
-                        var queryableSource = _queryableSourceFactory.Create(metric.Source);
-
-                        var metricValues = queryableSource.QueryValue(metric.Path);
-
-                        foreach (var sample in metricValues)
+                        if (string.IsNullOrEmpty(metric.Exclude) || !Regex.IsMatch(sample.Instance, metric.Exclude))
                         {
-                            if (string.IsNullOrEmpty(metric.Exclude) || !Regex.IsMatch(sample.Instance, metric.Exclude))
-                            {
-                                var metricName = _metricFormatter.Format(metricPrefix, sample.Instance, metric.Template);
-                                _publisher.Publish(metricName, sample.Value, metric.Type);
-                            }
+                            var metricName = _metricFormatter.Format(metricPrefix, sample.Instance, metric.Template);
+                            _publisher.Publish(metricName, sample.Value, metric.Type);
                         }
-                    });
-                }
-                catch (Exception ex)
-                {
-                    Log.Error("Error occurred in main spectator loop.", ex);
-                }
-
-                Log.DebugFormat("Spectate loop completed, sleeping for '{0}'", _configuration.Interval);
-                Thread.Sleep(_configuration.Interval);
+                    }
+                });
+            }
+            catch (Exception ex)
+            {
+                Log.Error("Exception occurred while spectating", ex);
             }
         }
 

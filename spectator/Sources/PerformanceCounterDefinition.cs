@@ -3,24 +3,24 @@ using spectator.Infrastructure;
 
 namespace spectator.Sources
 {
-    public sealed class PerformanceCounterDefinition
+    internal sealed class PerformanceCounterDefinition
     {
         private const char KeySeparator = '\\';
 
-        public PerformanceCounterDefinition(string key)
+        public PerformanceCounterDefinition(string path)
         {
-            Must.NotBeNull(() => key);
+            Must.NotBeNull(() => path);
 
-            if (!key.StartsWith("\\"))
+            if (!path.StartsWith("\\"))
             {
-                throw new ArgumentException("'key' must begin with a '\\'");
+                throw new ArgumentException("'path' must begin with a '\\'");
             }
 
-            var keyTokens = key.Split(KeySeparator);
+            var keyTokens = path.Split(KeySeparator);
 
             if (keyTokens.Length < 3)
             {
-                throw new ArgumentException("'key' must contain a Category and Counter", key);
+                throw new ArgumentException("'path' must contain a Category and Counter", path);
             }
 
             CategoryName = keyTokens[1];

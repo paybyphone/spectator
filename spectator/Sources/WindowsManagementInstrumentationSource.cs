@@ -21,7 +21,7 @@ namespace spectator.Sources
                     return new[] {new Sample(string.Empty, value)};
                 }
 
-                throw new NotSupportedException();
+                throw new NotSupportedException(string.Format("Could not find property '{0}' on any managed object in query source '{1}'", definition.PropertyName, definition.QuerySource));
             }
         }
 

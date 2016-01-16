@@ -16,7 +16,7 @@ namespace spectator.Sources
                     return new WindowsManagementInstrumentationSource();
             }
 
-            throw new NotSupportedException();
+            throw new NotSupportedException("Unsupported metric source requested");
         }
     }
 }
