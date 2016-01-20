@@ -11,3 +11,4 @@
 *.nupkg
 *.orig
 packages/
+.vs/

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using Consul;
 using log4net;
-using Newtonsoft.Json;
 using spectator.Infrastructure;
 
 namespace spectator.Configuration
@@ -12,7 +11,7 @@ namespace spectator.Configuration
     {
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private readonly JsonSpectatorConfiguration _innerConfiguration;
+        private readonly ISpectatorConfiguration _innerConfiguration;
         private readonly string _configContents;
 
         public ConsulSpectatorConfiguration(string host, string key)
@@ -24,7 +23,7 @@ namespace spectator.Configuration
 
             Log.InfoFormat("Using configuration read from consul host '{0}', in key '{1}'", host, key);
 
-            _innerConfiguration = JsonConvert.DeserializeObject<JsonSpectatorConfiguration>(_configContents);
+            _innerConfiguration = JsonSpectatorConfiguration.LoadFromString(_configContents);
         }
 
         public string StatsdHost { get { return _innerConfiguration.StatsdHost; } }

@@ -22,7 +22,11 @@ namespace spectator.Configuration
             var fileAdapter = new FileAdapter();
             var configContents = fileAdapter.ReadAllText(path);
 
-            return JsonConvert.DeserializeObject<JsonSpectatorConfiguration>(configContents);
+            return LoadFromString(configContents);
+        }
+        public static ISpectatorConfiguration LoadFromString(string contents)
+        {
+            return JsonConvert.DeserializeObject<JsonSpectatorConfiguration>(contents);
         }
     }
 }

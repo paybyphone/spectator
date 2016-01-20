@@ -50,6 +50,7 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\JsonSpectatorConfigurationTests.cs" />
     <Compile Include="Infrastructure\FileAdapterTests.cs" />
     <Compile Include="Metrics\MetricFormatterTests.cs" />
     <Compile Include="Metrics\StatsdPublisherTests.cs" />
@@ -69,9 +70,7 @@
     <None Include="app.config" />
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Configuration\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\spectator\spectator.csproj">
       <Project>{C3E2C24C-DABD-4A2E-ADC9-46685085EFA9}</Project>
