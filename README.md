@@ -6,11 +6,19 @@ Overview
 
 Spectator is a Windows Service for taking measurements from Performance Counters or WMI and publishing them to a Statsd-compatible server.
 
+Features:
+* Installs as a Windows service (via Topshelf)
+* Supports reading metric values from Performance Counters
+* Supports reading values from WMI (via ManagedObjectSearcher queries)
+* Pushes metrics via UDP to any Statsd-compatible server
+* Customisable metric names via templates
+* Exclude Performance Counter instances from being measured, using exclusion patterns
+* JSON configuration via local file or stored in a Consul key/value store
 
 Quick Start
 -----------
 
-Edit the `spectator.exe.config` file to set the Consul connection settings (or leave empty to use the local `spectator-config.json` file):
+Edit the `spectator.exe.config` file to set the Consul connection settings (or leave the `ConsulHost` setting empty to load from the local `spectator-config.json` file):
 
 ```
 <appSettings>
