@@ -80,8 +80,10 @@
     <Compile Include="Metrics\MetricFormatter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Sources\IPerformanceCounter.cs" />
     <Compile Include="Sources\IQueryableSource.cs" />
     <Compile Include="Sources\IQueryableSourceFactory.cs" />
+    <Compile Include="Sources\PerformanceCounterAdapter.cs" />
     <Compile Include="Sources\PerformanceCounterDefinition.cs" />
     <Compile Include="Sources\PerformanceCounterRegistry.cs" />
     <Compile Include="Sources\PerformanceCounterSource.cs" />
