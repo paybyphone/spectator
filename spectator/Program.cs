@@ -51,6 +51,7 @@ namespace spectator
         private static ISpectatorConfiguration LoadConfiguration()
         {
             var consulHost = ConfigurationManager.AppSettings[@"Spectator.ConsulHost"];
+            var configRefresh = TimeSpan.Parse(ConfigurationManager.AppSettings[@"Spectator.ConfigurationRefresh"]);
 
             if (!string.IsNullOrEmpty(consulHost))
             {
@@ -58,9 +59,7 @@ namespace spectator
 
                 try
                 {
-                    var config = ConsulSpectatorConfiguration.LoadFrom(consulHost, consulKey, saveTo: SpectatorConfigFile);
-
-                    return config;
+                    return new ExpiringConfigurationDecorator(() => ConsulSpectatorConfiguration.LoadFrom(consulHost, consulKey, saveTo: SpectatorConfigFile), configRefresh);
                 }
                 catch (Exception ex)
                 {
@@ -68,7 +67,7 @@ namespace spectator
                 }
             }
 
-            return JsonSpectatorConfiguration.LoadFrom(SpectatorConfigFile);
+            return new ExpiringConfigurationDecorator(() => JsonSpectatorConfiguration.LoadFrom(SpectatorConfigFile), configRefresh);
         }
     }
 }
