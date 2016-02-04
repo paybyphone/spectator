@@ -59,6 +59,7 @@
     <Compile Include="Sources\PerformanceCounterAdapterTests.cs" />
     <Compile Include="Sources\PerformanceCounterRegistryTestHarness.cs" />
     <Compile Include="Sources\PerformanceCounterRegistryTests.cs" />
+    <Compile Include="Sources\PerformanceCounterSourceTests.cs" />
     <Compile Include="Sources\QueryableSourceFactoryTests.cs" />
     <Compile Include="Sources\SampleTests.cs" />
     <Compile Include="Sources\WindowsManagementInstrumentationDefinitionTests.cs" />

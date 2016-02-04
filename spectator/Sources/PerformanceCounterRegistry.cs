@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 namespace spectator.Sources
 {
-    public class PerformanceCounterRegistry : IDisposable
+    public class PerformanceCounterRegistry : IDisposable, IPerformanceCounterRegistry
     {
         public static readonly PerformanceCounterRegistry Instance =
             new PerformanceCounterRegistry(new ConcurrentDictionary<Tuple<string, string, string>, IPerformanceCounter>(),

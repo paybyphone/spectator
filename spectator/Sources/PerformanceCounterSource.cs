@@ -1,22 +1,29 @@
 ﻿using System.Collections.Generic;
-using System.Diagnostics;
 
 namespace spectator.Sources
 {
     public class PerformanceCounterSource : IQueryableSource
     {
+        private readonly IPerformanceCounterRegistry _registry;
+        private readonly IPerformanceCounterCategoryRepository _categoryRepository;
+
+        public PerformanceCounterSource(IPerformanceCounterRegistry registry, IPerformanceCounterCategoryRepository categoryRepository)
+        {
+            _registry = registry;
+            _categoryRepository = categoryRepository;
+        }
+
         public IEnumerable<Sample> QueryValue(string path)
         {
             var definition = new PerformanceCounterDefinition(path);
 
             if (definition.AllInstances)
             {
-                var counterCategory = new PerformanceCounterCategory(definition.CategoryName);
-                var instances = counterCategory.GetInstanceNames();
+                var instances = _categoryRepository.GetInstances(definition.CategoryName);
 
                 foreach (var instance in instances)
                 {
-                    var value = PerformanceCounterRegistry.Instance.Read(definition.CategoryName, definition.CounterName, instance);
+                    var value = _registry.Read(definition.CategoryName, definition.CounterName, instance);
 
                     if (value.HasValue)
                     {
@@ -26,7 +33,7 @@ namespace spectator.Sources
             }
             else
             {
-                var value = PerformanceCounterRegistry.Instance.Read(definition.CategoryName, definition.CounterName, definition.InstanceName);
+                var value = _registry.Read(definition.CategoryName, definition.CounterName, definition.InstanceName);
 
                 if (value.HasValue)
                 {
