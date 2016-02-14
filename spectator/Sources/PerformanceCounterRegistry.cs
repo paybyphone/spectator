@@ -1,22 +1,26 @@
 ﻿using System;
 using System.Collections.Concurrent;
-using System.Diagnostics;
+using System.Collections.Generic;
 
 namespace spectator.Sources
 {
-    public class PerformanceCounterRegistry : IDisposable
+    public class PerformanceCounterRegistry : IDisposable, IPerformanceCounterRegistry
     {
-        public static readonly PerformanceCounterRegistry Instance = new PerformanceCounterRegistry();
+        public static readonly PerformanceCounterRegistry Instance =
+            new PerformanceCounterRegistry(new ConcurrentDictionary<Tuple<string, string, string>, IPerformanceCounter>(),
+                                           (category, counter, instance) => new PerformanceCounterAdapter(category, counter, instance));
 
         static PerformanceCounterRegistry()
         {
         }
 
-        private readonly ConcurrentDictionary<Tuple<string, string, string>, PerformanceCounter> _registry;
+        private readonly IDictionary<Tuple<string, string, string>, IPerformanceCounter> _registry;
+        private readonly Func<string, string, string, IPerformanceCounter> _performanceCounterFactory;
 
-        private PerformanceCounterRegistry()
+        protected PerformanceCounterRegistry(IDictionary<Tuple<string, string, string>, IPerformanceCounter> registry, Func<string, string, string, IPerformanceCounter> performanceCounterFactory)
         {
-            _registry = new ConcurrentDictionary<Tuple<string, string, string>, PerformanceCounter>();
+            _registry = registry;
+            _performanceCounterFactory = performanceCounterFactory;
         }
 
         public float? Read(string categoryName, string counterName, string instance)
@@ -30,11 +34,9 @@ namespace spectator.Sources
                 return _registry[lookupKey].NextValue();
             }
 
-            var performanceCounter = instance != null
-                    ? new PerformanceCounter(categoryName, counterName, instance)
-                    : new PerformanceCounter(categoryName, counterName);
+            var performanceCounter = _performanceCounterFactory(categoryName, counterName, instance);
 
-            _registry.TryAdd(lookupKey, performanceCounter);
+            _registry.Add(lookupKey, performanceCounter);
 
             performanceCounter.NextValue();
 
