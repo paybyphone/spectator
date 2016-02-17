@@ -51,12 +51,11 @@ namespace spectator
         private static ISpectatorConfiguration LoadConfiguration()
         {
             var consulHost = ConfigurationManager.AppSettings[@"Spectator.ConsulHost"];
+            var consulKey = ConfigurationManager.AppSettings[@"Spectator.ConsulKey"];
             var configRefresh = TimeSpan.Parse(ConfigurationManager.AppSettings[@"Spectator.ConfigurationRefresh"]);
 
-            if (!string.IsNullOrEmpty(consulHost))
+            if (!string.IsNullOrEmpty(consulHost) || !string.IsNullOrEmpty(consulKey))
             {
-                var consulKey = ConfigurationManager.AppSettings[@"Spectator.ConsulKey"];
-
                 try
                 {
                     return new ExpiringConfigurationDecorator(() => ConsulSpectatorConfiguration.LoadFrom(consulHost, consulKey, saveTo: SpectatorConfigFile), configRefresh);

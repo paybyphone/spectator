@@ -16,7 +16,7 @@ namespace spectator.Configuration
 
         public ConsulSpectatorConfiguration(string host, string key)
         {
-            var client = new Client(new ConsulClientConfiguration { Address = host });
+            var client = string.IsNullOrEmpty(host) ? new Client() : new Client(new ConsulClientConfiguration { Address = host });
 
             var getPair = client.KV.Get(key);
             _configContents = Encoding.UTF8.GetString(getPair.Response.Value, 0, getPair.Response.Value.Length);
