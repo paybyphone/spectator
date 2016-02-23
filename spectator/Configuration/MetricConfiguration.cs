@@ -10,6 +10,8 @@
 
         public string Template { get; set; }
 
+        public string Include { get; set; }
+
         public string Exclude { get; set; }
     }
 }

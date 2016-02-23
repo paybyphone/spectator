@@ -59,7 +59,7 @@ namespace spectator
 
                     foreach (var sample in metricValues)
                     {
-                        if (string.IsNullOrEmpty(metric.Exclude) || !Regex.IsMatch(sample.Instance, metric.Exclude))
+                        if (Included(metric.Include, sample.Instance) && !Excluded(metric.Exclude, sample.Instance))
                         {
                             var metricName = _metricFormatter.Format(metricPrefix, sample.Instance, metric.Template);
                             _publisher.Publish(metricName, sample.Value, metric.Type);
@@ -71,6 +71,16 @@ namespace spectator
             {
                 Log.Error("Exception occurred while spectating", ex);
             }
+        }
+
+        private bool Included(string includePattern, string instance)
+        {
+            return string.IsNullOrEmpty(includePattern) || Regex.IsMatch(instance, includePattern);
+        }
+
+        private bool Excluded(string excludePattern, string instance)
+        {
+            return !string.IsNullOrEmpty(excludePattern) && Regex.IsMatch(instance, excludePattern);
         }
 
         public void Start()
