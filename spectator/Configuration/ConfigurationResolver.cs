@@ -13,7 +13,7 @@ namespace spectator.Configuration
 
         public ISpectatorConfiguration Resolve()
         {
-            var configRefresh = TimeSpan.Parse(ConfigurationManager.AppSettings[@"Spectator.ConfigurationRefresh"] ?? "00:00:00");
+            var configRefresh = TimeSpan.Parse(ConfigurationManager.AppSettings[@"Spectator.ConfigurationRefresh"] ?? @"00:00:00");
 
             var consulHost = ConfigurationManager.AppSettings[@"Spectator.ConsulHost"];
             var consulKey = ConfigurationManager.AppSettings[@"Spectator.ConsulKey"];
@@ -29,7 +29,7 @@ namespace spectator.Configuration
 
             if (!(baseJsonConfigFile is EmptyConfiguration))
             {
-                Log.InfoFormat("Using combined configuration based on '{0}'", BaseSpectatorConfigFile);
+                Log.InfoFormat("Using combined configuration using base config file '{0}' ({1} metrics) and overriding with loaded {3} metrics", BaseSpectatorConfigFile, baseJsonConfigFile.Metrics.Count, config.Metrics);
 
                 return new CombinedSpectatorConfiguration(baseJsonConfigFile, config);
             }
