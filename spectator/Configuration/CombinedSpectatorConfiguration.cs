@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using spectator.Infrastructure;
 
 namespace spectator.Configuration
 {
@@ -22,6 +23,16 @@ namespace spectator.Configuration
 
         private IList<MetricConfiguration> CombineMetricConfigurations(IList<MetricConfiguration> baseMetrics, IList<MetricConfiguration> overrideMetrics)
         {
+            if (overrideMetrics.IsNull() || !overrideMetrics.Any())
+            {
+                return baseMetrics;
+            }
+
+            if (baseMetrics.IsNull() || !baseMetrics.Any())
+            {
+                return overrideMetrics;
+            }
+
             var combinedMetricConfiguration = new List<MetricConfiguration>();
 
             combinedMetricConfiguration.AddRange(baseMetrics);

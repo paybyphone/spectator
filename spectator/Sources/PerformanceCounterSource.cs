@@ -1,9 +1,14 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using log4net;
 
 namespace spectator.Sources
 {
     public class PerformanceCounterSource : IQueryableSource
     {
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         private readonly IPerformanceCounterRegistry _registry;
         private readonly IPerformanceCounterCategoryRepository _categoryRepository;
 
@@ -15,31 +20,43 @@ namespace spectator.Sources
 
         public IEnumerable<Sample> QueryValue(string path)
         {
-            var definition = new PerformanceCounterDefinition(path);
-
-            if (definition.AllInstances)
+            try
             {
-                var instances = _categoryRepository.GetInstances(definition.CategoryName);
+                var samples = new List<Sample>();
+                var definition = new PerformanceCounterDefinition(path);
 
-                foreach (var instance in instances)
+                if (definition.AllInstances)
                 {
-                    var value = _registry.Read(definition.CategoryName, definition.CounterName, instance);
+                    var instances = _categoryRepository.GetInstances(definition.CategoryName);
+
+                    foreach (var instance in instances)
+                    {
+                        var value = _registry.Read(definition.CategoryName, definition.CounterName, instance);
+
+                        if (value.HasValue)
+                        {
+                            samples.Add(new Sample(instance, value.Value));
+                        }
+                    }
+                }
+                else
+                {
+                    var value = _registry.Read(definition.CategoryName, definition.CounterName, definition.InstanceName);
 
                     if (value.HasValue)
                     {
-                        yield return new Sample(instance, value.Value);
+                        samples.Add(new Sample(definition.InstanceName, value.Value));
                     }
                 }
-            }
-            else
-            {
-                var value = _registry.Read(definition.CategoryName, definition.CounterName, definition.InstanceName);
 
-                if (value.HasValue)
-                {
-                    yield return new Sample(definition.InstanceName, value.Value);
-                }
+                return samples;
             }
+            catch (Exception ex)
+            {
+                Log.Error(ex);
+            }
+
+            return Enumerable.Empty<Sample>();
         }
     }
 }

@@ -44,6 +44,11 @@ namespace spectator.Configuration
 
         public static ISpectatorConfiguration LoadFrom(string host, string key, string saveTo)
         {
+            if (string.IsNullOrEmpty(host) && string.IsNullOrEmpty(key))
+            {
+                throw new ArgumentException("A consul host or key must be provided to use a consul configuration.");
+            }
+
             var config = new ConsulSpectatorConfiguration(host, key);
 
             config.Save(saveTo);

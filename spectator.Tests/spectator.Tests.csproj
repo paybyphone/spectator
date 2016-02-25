@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\CombinedSpectatorConfigurationTests.cs" />
+    <Compile Include="Configuration\ConfigurationResolverTests.cs" />
     <Compile Include="Configuration\JsonSpectatorConfigurationTests.cs" />
     <Compile Include="Infrastructure\FileAdapterTests.cs" />
     <Compile Include="Metrics\MetricFormatterTests.cs" />

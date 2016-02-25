@@ -8,12 +8,12 @@ namespace spectator.Configuration
     {
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
-        private const string DefaultSpectatorConfigFile = @"spectator-config.json";
-        private const string BaseSpectatorConfigFile = @"base-spectator-config";
+        public const string DefaultSpectatorConfigFile = @"spectator-config.json";
+        public const string BaseSpectatorConfigFile = @"base-spectator-config.json";
 
         public ISpectatorConfiguration Resolve()
         {
-            var configRefresh = TimeSpan.Parse(ConfigurationManager.AppSettings[@"Spectator.ConfigurationRefresh"]);
+            var configRefresh = TimeSpan.Parse(ConfigurationManager.AppSettings[@"Spectator.ConfigurationRefresh"] ?? "00:00:00");
 
             var consulHost = ConfigurationManager.AppSettings[@"Spectator.ConsulHost"];
             var consulKey = ConfigurationManager.AppSettings[@"Spectator.ConsulKey"];
@@ -22,18 +22,10 @@ namespace spectator.Configuration
 
             var baseJsonConfigFile = JsonSpectatorConfiguration.LoadFrom(BaseSpectatorConfigFile);
 
-            ISpectatorConfiguration config;
-
-            try
-            {
-                config =  new ExpiringConfigurationDecorator(() => ConsulSpectatorConfiguration.LoadFrom(consulHost, consulKey, saveTo: jsonConfigFile), configRefresh);
-            }
-            catch (Exception ex)
-            {
-                Log.Warn(string.Format(@"Exception occurred while obtaining configuration from consul at '{0}' (key: '{1}'). Will fallback to using locally stored JSON configuration.", consulHost, consulKey), ex);
-
-                config = new ExpiringConfigurationDecorator(() => JsonSpectatorConfiguration.LoadFrom(jsonConfigFile), configRefresh);
-            }
+            ISpectatorConfiguration config =
+                new ExpiringConfigurationDecorator(() =>
+                    Fallback.On(() => ConsulSpectatorConfiguration.LoadFrom(consulHost, consulKey, saveTo: jsonConfigFile),
+                                () => JsonSpectatorConfiguration.LoadFrom(jsonConfigFile)), configRefresh);
 
             if (!(baseJsonConfigFile is EmptyConfiguration))
             {
