@@ -1,6 +1,4 @@
-﻿using System;
-using System.Configuration;
-using log4net;
+﻿using log4net;
 using spectator.Configuration;
 using spectator.Metrics;
 using spectator.Sources;
@@ -11,16 +9,20 @@ namespace spectator
 {
     public class Program
     {
-        private const string SpectatorConfigFile = @"spectator-config.json";
+        private const string DefaultSpectatorConfigFile = @"spectator-config.json";
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public static void Main(string[] args)
         {
+            var configurationResolver = new ConfigurationResolver();
+
+            Log.Info("Starting spectator topshelf host");
+
             HostFactory.Run(hostConfigurator =>
             {
                 hostConfigurator.Service<SpectatorService>(serviceConfigurator =>
                     {
-                        var configuration = LoadConfiguration();
+                        var configuration = configurationResolver.Resolve();
                         serviceConfigurator.ConstructUsing(() =>
                             new SpectatorService(
                                 configuration,
@@ -46,27 +48,6 @@ namespace spectator
                 hostConfigurator.SetDescription(@"Monitors system metrics and sends them to a statsd-compatible server.");
                 hostConfigurator.SetServiceName(@"Spectator");
             });
-        }
-
-        private static ISpectatorConfiguration LoadConfiguration()
-        {
-            var consulHost = ConfigurationManager.AppSettings[@"Spectator.ConsulHost"];
-            var consulKey = ConfigurationManager.AppSettings[@"Spectator.ConsulKey"];
-            var configRefresh = TimeSpan.Parse(ConfigurationManager.AppSettings[@"Spectator.ConfigurationRefresh"]);
-
-            if (!string.IsNullOrEmpty(consulHost) || !string.IsNullOrEmpty(consulKey))
-            {
-                try
-                {
-                    return new ExpiringConfigurationDecorator(() => ConsulSpectatorConfiguration.LoadFrom(consulHost, consulKey, saveTo: SpectatorConfigFile), configRefresh);
-                }
-                catch (Exception ex)
-                {
-                    Log.Warn(string.Format(@"Exception occurred while obtaining configuration from consul at '{0}' (key: '{1}'). Will fallback to using locally stored JSON configuration.", consulHost, consulKey), ex);
-                }
-            }
-
-            return new ExpiringConfigurationDecorator(() => JsonSpectatorConfiguration.LoadFrom(SpectatorConfigFile), configRefresh);
         }
     }
 }

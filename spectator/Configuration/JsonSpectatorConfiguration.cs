@@ -20,10 +20,19 @@ namespace spectator.Configuration
         public static ISpectatorConfiguration LoadFrom(string path)
         {
             var fileAdapter = new FileAdapter();
-            var configContents = fileAdapter.ReadAllText(path);
 
-            return LoadFromString(configContents);
+            try
+            {
+                var configContents = fileAdapter.ReadAllText(path);
+
+                return LoadFromString(configContents);
+            }
+            catch
+            {
+                return new EmptyConfiguration();
+            }
         }
+
         public static ISpectatorConfiguration LoadFromString(string contents)
         {
             return JsonConvert.DeserializeObject<JsonSpectatorConfiguration>(contents);

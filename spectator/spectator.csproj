@@ -64,8 +64,12 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Configuration\CombinedSpectatorConfiguration.cs" />
+    <Compile Include="Configuration\ConfigurationResolver.cs" />
     <Compile Include="Configuration\ConsulSpectatorConfiguration.cs" />
+    <Compile Include="Configuration\EmptyConfiguration.cs" />
     <Compile Include="Configuration\ExpiringConfigurationDecorator.cs" />
+    <Compile Include="Configuration\IConfigurationResolver.cs" />
     <Compile Include="Configuration\ISpectatorConfiguration.cs" />
     <Compile Include="Configuration\JsonSpectatorConfiguration.cs" />
     <Compile Include="Configuration\MetricConfiguration.cs" />
@@ -102,6 +106,9 @@
   <ItemGroup>
     <None Include="App.config" />
     <None Include="spectator-web-config.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="base-spectator-config.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="spectator-config.json">
