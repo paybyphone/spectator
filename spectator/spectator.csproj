@@ -76,7 +76,6 @@
     <Compile Include="Configuration\MetricSource.cs" />
     <Compile Include="Configuration\MetricType.cs" />
     <Compile Include="Configuration\FallbackConfiguration.cs" />
-    <Compile Include="Configuration\WebSpectatorConfiguration.cs" />
     <Compile Include="Infrastructure\Must.cs" />
     <Compile Include="Infrastructure\ObjectExtensions.cs" />
     <Compile Include="Infrastructure\StringExtensions.cs" />
