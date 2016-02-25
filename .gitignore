@@ -10,5 +10,6 @@
 *.userprefs
 *.nupkg
 *.orig
+*.TMP
 packages/
 .vs/
