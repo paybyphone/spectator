@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net;
-using log4net;
 using spectator.Infrastructure;
 
 namespace spectator.Metrics
 {
     public sealed class MetricFormatter : IMetricFormatter
     {
-        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
         private readonly IDictionary<string, string> _registeredReplacements = new Dictionary<string, string>
             {
                 { "machine", Dns.GetHostName() }
