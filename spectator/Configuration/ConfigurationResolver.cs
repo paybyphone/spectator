@@ -29,7 +29,7 @@ namespace spectator.Configuration
 
             if (!(baseJsonConfigFile is EmptyConfiguration))
             {
-                Log.InfoFormat("Using combined configuration using base config file '{0}' ({1} metrics) and overriding with loaded {3} metrics", BaseSpectatorConfigFile, baseJsonConfigFile.Metrics.Count, config.Metrics);
+                Log.InfoFormat("Using combined configuration using base config file '{0}' ({1} metrics) and overriding with loaded {2} metrics", BaseSpectatorConfigFile, baseJsonConfigFile.Metrics.Count, config.Metrics.Count);
 
                 return new CombinedSpectatorConfiguration(baseJsonConfigFile, config);
             }

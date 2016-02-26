@@ -15,7 +15,7 @@ namespace spectator.Configuration
             }
             catch (Exception ex)
             {
-                Log.Warn("Couldn't obtain primary configuration, falling back to secondary configuration", ex);
+                Log.WarnFormat("Couldn't obtain primary configuration ('{0}'), falling back to secondary configuration", ex.Message);
 
                 return fallbackFactory();
             }
