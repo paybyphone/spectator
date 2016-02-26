@@ -9,7 +9,6 @@ namespace spectator
 {
     public class Program
     {
-        private const string DefaultSpectatorConfigFile = @"spectator-config.json";
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         public static void Main(string[] args)

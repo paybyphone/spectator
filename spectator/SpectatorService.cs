@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
@@ -51,11 +52,15 @@ namespace spectator
 
             try
             {
+                Log.DebugFormat("Sampling for {0} configured metric definitions", _configuration.Metrics.Count);
+
                 Parallel.ForEach(_configuration.Metrics, metric =>
                 {
                     var queryableSource = _queryableSourceFactory.Create(metric.Source);
 
-                    var metricValues = queryableSource.QueryValue(metric.Path);
+                    var metricValues = queryableSource.QueryValue(metric.Path).ToList();
+
+                    Log.DebugFormat("  -> Queried '{0}' from '{1}', resulting in {2} metric samples (unfiltered)", metric.Path, metric.Source, metricValues.Count());
 
                     foreach (var sample in metricValues)
                     {
