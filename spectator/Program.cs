@@ -13,6 +13,8 @@ namespace spectator
 
         public static void Main(string[] args)
         {
+            System.IO.Directory.SetCurrentDirectory(System.AppDomain.CurrentDomain.BaseDirectory);
+
             var configurationResolver = new ConfigurationResolver();
 
             Log.Info("Starting spectator topshelf host");
