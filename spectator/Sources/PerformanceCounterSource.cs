@@ -53,7 +53,7 @@ namespace spectator.Sources
             }
             catch (Exception ex)
             {
-                Log.Error(ex);
+                Log.Error("Exception occurred querying performance counter", ex);
             }
 
             return Enumerable.Empty<Sample>();

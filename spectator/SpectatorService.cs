@@ -83,6 +83,8 @@ namespace spectator
                     }
                 });
 
+                Log.DebugFormat("Obtained {0} metrics to publish, publishing now...", allMetrics.Count);
+
                 foreach (var metric in allMetrics)
                 {
                     _publisher.Publish(metric);
@@ -115,6 +117,7 @@ namespace spectator
             _cancellationTokenSource.Cancel();
             _eventLoopTask.Wait();
 
+            Log.Info("Cleaning up performance counters.");
             PerformanceCounterRegistry.Instance.Dispose();
 
             Log.Info("Spectator service stopped.");

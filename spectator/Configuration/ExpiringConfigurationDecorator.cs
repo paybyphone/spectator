@@ -40,6 +40,10 @@ namespace spectator.Configuration
                 _configurationInstance = _spectatorConfigurationFactory();
 
                 _expiration = now + _expirationInterval;
+
+                Log.Info("Configuration loaded: ");
+                Log.Info(_configurationInstance.PrettyPrint());
+                Log.InfoFormat("Expires next at: {0}", _expiration.ToString("o"));
             }
 
             return configValue(_configurationInstance);
