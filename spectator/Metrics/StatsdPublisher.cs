@@ -16,14 +16,14 @@ namespace spectator.Metrics
             _statsdClient = statsdClient;
         }
 
-        public void Publish(string metricName, double metricValue, MetricType type = MetricType.Gauge)
+        public void Publish(Metric metric)
         {
-            Log.DebugFormat("{0} | {1} | {2}", metricName, metricValue, type);
+            Log.DebugFormat("{0} | {1} | {2}", metric.Name, metric.Value, metric.Type);
 
-            switch (type)
+            switch (metric.Type)
             {
                 case MetricType.Gauge:
-                    _statsdClient.Send<Statsd.Gauge>(metricName, (double)metricValue);
+                    _statsdClient.Send<Statsd.Gauge>(metric.Name, metric.Value);
                     return;
             }
 

@@ -23,14 +23,14 @@ namespace spectator.Tests.Metrics
         [Test]
         public void gauge_metrics_are_supported()
         {
-            Assert.DoesNotThrow(() => _statsdPublisher.Publish(Some.String(), Some.Double(), MetricType.Gauge));
+            Assert.DoesNotThrow(() => _statsdPublisher.Publish(new Metric(Some.String(), Some.Double())));
         }
 
         [TestCase(MetricType.Count)]
         [TestCase(MetricType.Timing)]
         public void other_types_of_metric_are_not_supported(MetricType metricType)
         {
-            Assert.Throws<NotSupportedException>(() => _statsdPublisher.Publish(Some.String(), Some.Double(), metricType));
+            Assert.Throws<NotSupportedException>(() => _statsdPublisher.Publish(new Metric(Some.String(), Some.Double(), metricType)));
         }
     }
 }

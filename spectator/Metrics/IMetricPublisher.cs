@@ -1,9 +1,7 @@
-﻿using spectator.Configuration;
-
-namespace spectator.Metrics
+﻿namespace spectator.Metrics
 {
     public interface IMetricPublisher
     {
-        void Publish(string metricName, double metricValue, MetricType type = MetricType.Gauge);
+        void Publish(Metric metric);
     }
 }

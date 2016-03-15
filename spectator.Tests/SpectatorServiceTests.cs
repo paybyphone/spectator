@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Threading;
+using System.Threading.Tasks;
 using Moq;
 using NUnit.Framework;
 using spectator.Configuration;
@@ -35,7 +37,7 @@ namespace spectator.Tests
             _formatter.Setup(m => m.Format(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>())).Returns("metricname");
             _configuration.Setup(m => m.Metrics).Returns(new List<MetricConfiguration> { metricConfiguration });
 
-            _service.Spectate();
+            _service.Spectate(new CancellationToken(), TaskScheduler.Current);
         }
 
         [Test]
@@ -47,7 +49,7 @@ namespace spectator.Tests
         [Test]
         public void measured_samples_are_published()
         {
-            _publisher.Verify(m => m.Publish(It.IsAny<string>(), It.IsAny<double>(), It.IsAny<MetricType>()), Times.Once);
+            _publisher.Verify(m => m.Publish(It.IsAny<Metric>()), Times.Once);
         }
 
 
@@ -59,7 +61,7 @@ namespace spectator.Tests
 
             var service = new SpectatorServiceTestHarness(_configuration.Object, _sourceFactory.Object, _publisher.Object, _formatter.Object);
 
-            Assert.DoesNotThrow(() => service.Spectate());
+            Assert.DoesNotThrow(() => service.Spectate(new CancellationToken(), TaskScheduler.Current));
         }
     }
 }

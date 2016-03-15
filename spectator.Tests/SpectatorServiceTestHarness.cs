@@ -1,4 +1,6 @@
-﻿using spectator.Configuration;
+﻿using System.Threading;
+using System.Threading.Tasks;
+using spectator.Configuration;
 using spectator.Metrics;
 using spectator.Sources;
 
@@ -11,9 +13,9 @@ namespace spectator.Tests
         {
         }
 
-        public new void Spectate()
+        public new void Spectate(CancellationToken token, TaskScheduler scheduler)
         {
-            base.Spectate();
+            base.Spectate(token, scheduler);
         }
     }
 }

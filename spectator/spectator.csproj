@@ -83,6 +83,7 @@
     <Compile Include="Infrastructure\FileAdapter.cs" />
     <Compile Include="Infrastructure\IFile.cs" />
     <Compile Include="Metrics\IMetricFormatter.cs" />
+    <Compile Include="Metrics\Metric.cs" />
     <Compile Include="Metrics\MetricFormatter.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

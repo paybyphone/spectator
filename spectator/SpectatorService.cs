@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Concurrent;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Threading;
@@ -39,14 +40,14 @@ namespace spectator
 
             while (!_cancellationTokenSource.IsCancellationRequested)
             {
-                Spectate();
+                Spectate(_cancellationTokenSource.Token);
 
                 Log.DebugFormat("Spectate loop completed, waiting for '{0}' until next loop", _configuration.Interval);
                 _cancellationTokenSource.Token.WaitHandle.WaitOne(_configuration.Interval);
             }
         }
 
-        protected void Spectate()
+        protected void Spectate(CancellationToken token, TaskScheduler scheduler = null)
         {
             var metricPrefix = _configuration.MetricPrefix;
 
@@ -54,7 +55,16 @@ namespace spectator
             {
                 Log.DebugFormat("Sampling for {0} configured metric definitions", _configuration.Metrics.Count);
 
-                Parallel.ForEach(_configuration.Metrics, metric =>
+                var options = new ParallelOptions
+                {
+                    CancellationToken = token,
+                    MaxDegreeOfParallelism = 8,
+                    TaskScheduler = scheduler
+                };
+
+                var allMetrics = new ConcurrentBag<Metric>();
+
+                Parallel.ForEach(_configuration.Metrics, options, metric =>
                 {
                     var queryableSource = _queryableSourceFactory.Create(metric.Source);
 
@@ -67,10 +77,16 @@ namespace spectator
                         if (Included(metric.Include, sample.Instance) && !Excluded(metric.Exclude, sample.Instance))
                         {
                             var metricName = _metricFormatter.Format(metricPrefix, sample.Instance, metric.Template);
-                            _publisher.Publish(metricName, sample.Value, metric.Type);
+
+                            allMetrics.Add(new Metric(metricName, sample.Value, metric.Type));
                         }
                     }
                 });
+
+                foreach (var metric in allMetrics)
+                {
+                    _publisher.Publish(metric);
+                }
             }
             catch (Exception ex)
             {
