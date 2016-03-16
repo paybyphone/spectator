@@ -53,6 +53,7 @@ namespace spectator.Sources
             }
             catch (Exception ex)
             {
+                ex.Data.Add("Path", path);
                 Log.Error("Exception occurred querying performance counter", ex);
             }
 
