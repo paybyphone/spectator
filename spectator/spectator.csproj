@@ -90,6 +90,8 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Sources\IQueryableSource.cs" />
     <Compile Include="Sources\IQueryableSourceFactory.cs" />
+    <Compile Include="Sources\PerformanceCounters\IIllegalInstanceNameMapper.cs" />
+    <Compile Include="Sources\PerformanceCounters\IllegalInstanceNameMapper.cs" />
     <Compile Include="Sources\PerformanceCounters\IPerformanceCounter.cs" />
     <Compile Include="Sources\PerformanceCounters\IPerformanceCounterCategoryRepository.cs" />
     <Compile Include="Sources\PerformanceCounters\IPerformanceCounterRegistry.cs" />
