@@ -1,4 +1,4 @@
-namespace spectator.Sources
+namespace spectator.Sources.PerformanceCounters
 {
     public interface IPerformanceCounterRegistry
     {

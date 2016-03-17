@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace spectator.Sources
+namespace spectator.Sources.PerformanceCounters
 {
     public interface IPerformanceCounter : IDisposable
     {

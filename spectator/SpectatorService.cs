@@ -8,6 +8,7 @@ using log4net;
 using spectator.Configuration;
 using spectator.Metrics;
 using spectator.Sources;
+using spectator.Sources.PerformanceCounters;
 
 namespace spectator
 {

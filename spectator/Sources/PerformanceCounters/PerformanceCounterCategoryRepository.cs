@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Diagnostics;
 
-namespace spectator.Sources
+namespace spectator.Sources.PerformanceCounters
 {
     public class PerformanceCounterCategoryRepository : IPerformanceCounterCategoryRepository
     {

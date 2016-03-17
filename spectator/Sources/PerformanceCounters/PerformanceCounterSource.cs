@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using log4net;
 
-namespace spectator.Sources
+namespace spectator.Sources.PerformanceCounters
 {
     public class PerformanceCounterSource : IQueryableSource
     {

@@ -2,7 +2,7 @@
 using System.Collections.Concurrent;
 using System.Collections.Generic;
 
-namespace spectator.Sources
+namespace spectator.Sources.PerformanceCounters
 {
     public class PerformanceCounterRegistry : IDisposable, IPerformanceCounterRegistry
     {

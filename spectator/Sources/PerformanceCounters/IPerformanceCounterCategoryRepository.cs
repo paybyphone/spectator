@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace spectator.Sources
+namespace spectator.Sources.PerformanceCounters
 {
     public interface IPerformanceCounterCategoryRepository
     {

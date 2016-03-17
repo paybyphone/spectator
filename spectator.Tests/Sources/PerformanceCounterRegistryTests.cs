@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Moq;
 using NUnit.Framework;
-using spectator.Sources;
+using spectator.Sources.PerformanceCounters;
 
 namespace spectator.Tests.Sources
 {

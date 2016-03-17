@@ -1,7 +1,7 @@
 using System;
 using spectator.Infrastructure;
 
-namespace spectator.Sources
+namespace spectator.Sources.PerformanceCounters
 {
     internal sealed class PerformanceCounterDefinition
     {
