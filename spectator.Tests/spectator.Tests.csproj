@@ -60,15 +60,14 @@
     <Compile Include="Metrics\StatsdPublisherTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Some.cs" />
-    <Compile Include="Sources\PerformanceCounters\IllegalInstanceNameMapperTests.cs" />
-    <Compile Include="Sources\PerformanceCounters\PerformanceCounterAdapterTests.cs" />
-    <Compile Include="Sources\PerformanceCounters\PerformanceCounterRegistryTestHarness.cs" />
-    <Compile Include="Sources\PerformanceCounters\PerformanceCounterRegistryTests.cs" />
-    <Compile Include="Sources\PerformanceCounters\PerformanceCounterSourceTests.cs" />
+    <Compile Include="Sources\PerformanceCounterAdapterTests.cs" />
+    <Compile Include="Sources\PerformanceCounterRegistryTestHarness.cs" />
+    <Compile Include="Sources\PerformanceCounterRegistryTests.cs" />
+    <Compile Include="Sources\PerformanceCounterSourceTests.cs" />
     <Compile Include="Sources\QueryableSourceFactoryTests.cs" />
     <Compile Include="Sources\SampleTests.cs" />
     <Compile Include="Sources\WindowsManagementInstrumentationDefinitionTests.cs" />
-    <Compile Include="Sources\PerformanceCounters\PerformanceCounterDefinitionTests.cs" />
+    <Compile Include="Sources\PerformanceCounterDefinitionTests.cs" />
     <Compile Include="SpectatorServiceTestHarness.cs" />
     <Compile Include="SpectatorServiceTests.cs" />
   </ItemGroup>

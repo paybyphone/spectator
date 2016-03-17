@@ -11,7 +11,7 @@ namespace spectator.Sources
             switch (source)
             {
                 case MetricSource.PerformanceCounter:
-                    return new PerformanceCounterSource(PerformanceCounterRegistry.Instance, new PerformanceCounterCategoryRepository(new IllegalInstanceNameMapper()));
+                    return new PerformanceCounterSource(PerformanceCounterRegistry.Instance, new PerformanceCounterCategoryRepository());
 
                 case MetricSource.WindowsManagementInstrumentation:
                     return new WindowsManagementInstrumentationSource();

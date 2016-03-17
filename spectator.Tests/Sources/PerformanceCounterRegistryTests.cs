@@ -4,7 +4,7 @@ using Moq;
 using NUnit.Framework;
 using spectator.Sources.PerformanceCounters;
 
-namespace spectator.Tests.Sources.PerformanceCounters
+namespace spectator.Tests.Sources
 {
     [TestFixture]
     public class PerformanceCounterRegistryTests
