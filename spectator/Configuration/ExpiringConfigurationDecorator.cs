@@ -37,12 +37,23 @@ namespace spectator.Configuration
             {
                 Log.Info("Configuration has expired, refreshing from source");
 
-                _configurationInstance = _spectatorConfigurationFactory();
+                var newConfig = _spectatorConfigurationFactory();
 
                 _expiration = now + _expirationInterval;
 
                 Log.Info("Configuration loaded: ");
-                Log.Info(_configurationInstance.PrettyPrint());
+
+                if (_configurationInstance != null)
+                {
+                    var diff = new ConfigurationDifferenceSummary(_configurationInstance, newConfig);
+
+                    if (string.IsNullOrEmpty(diff.ToString()))
+                    {
+                        Log.Info("Configuration changed: \n" + diff);
+                    }
+                }
+
+                _configurationInstance = newConfig;
                 Log.InfoFormat("Expires next at: {0}", _expiration.ToString("o"));
             }
 

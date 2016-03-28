@@ -51,10 +51,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Configuration\CombinedSpectatorConfigurationTests.cs" />
+    <Compile Include="Configuration\ConfigurationDifferenceSummaryTests.cs" />
     <Compile Include="Configuration\ConfigurationResolverTests.cs" />
     <Compile Include="Configuration\EmptyConfigurationTests.cs" />
     <Compile Include="Configuration\FallbackTests.cs" />
     <Compile Include="Configuration\JsonSpectatorConfigurationTests.cs" />
+    <Compile Include="Configuration\TestConfiguration.cs" />
     <Compile Include="Infrastructure\FileAdapterTests.cs" />
     <Compile Include="Metrics\MetricFormatterTests.cs" />
     <Compile Include="Metrics\StatsdPublisherTests.cs" />
