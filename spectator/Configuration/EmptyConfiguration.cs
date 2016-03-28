@@ -11,7 +11,7 @@ namespace spectator.Configuration
 
         public string MetricPrefix { get { return string.Empty; } }
 
-        public TimeSpan Interval { get { return TimeSpan.Zero; } }
+        public TimeSpan Interval { get { return TimeSpan.FromSeconds(5); } }
 
         public IList<MetricConfiguration> Metrics { get { return new List<MetricConfiguration>(); } }
     }

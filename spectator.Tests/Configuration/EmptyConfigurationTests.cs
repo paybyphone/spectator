@@ -28,9 +28,9 @@ namespace spectator.Tests.Configuration
         }
 
         [Test]
-        public void empty_configuration_has_zero_interval()
+        public void empty_configuration_has_a_five_second_interval_so_that_using_it_does_not_constantly_publish_nowhere()
         {
-            Assert.That(_emptyConfig.Interval, Is.EqualTo(TimeSpan.Zero));
+            Assert.That(_emptyConfig.Interval, Is.EqualTo(TimeSpan.FromSeconds(5)));
         }
 
         [Test]
