@@ -54,7 +54,7 @@ namespace spectator
 
             try
             {
-                Log.DebugFormat("Sampling for {0} configured metric definitions", _configuration.Metrics.Count);
+                Log.InfoFormat("Sampling for {0} configured metric definitions", _configuration.Metrics.Count);
 
                 var options = new ParallelOptions
                 {
