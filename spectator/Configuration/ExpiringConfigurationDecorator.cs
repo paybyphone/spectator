@@ -49,7 +49,7 @@ namespace spectator.Configuration
                 {
                     var diff = new ConfigurationDifferenceSummary(_configurationInstance, newConfig);
 
-                    if (!string.IsNullOrEmpty(diff.ToString()))
+                    if (!diff.IsEmpty())
                     {
                         Log.Info("Configuration changed: \n" + diff);
                     }
