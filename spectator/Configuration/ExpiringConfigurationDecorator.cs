@@ -20,6 +20,8 @@ namespace spectator.Configuration
             _expiration = DateTimeOffset.MinValue;
         }
 
+        internal ISpectatorConfiguration InnerConfiguration { get { return Get(c => c); } }
+
         public string StatsdHost { get { return Get(c => c.StatsdHost); } }
 
         public int StatsdPort { get { return Get(c => c.StatsdPort); } }
@@ -41,13 +43,13 @@ namespace spectator.Configuration
 
                 _expiration = now + _expirationInterval;
 
-                Log.Info("Configuration loaded: ");
+                Log.Info("Configuration loaded.");
 
                 if (_configurationInstance != null)
                 {
                     var diff = new ConfigurationDifferenceSummary(_configurationInstance, newConfig);
 
-                    if (string.IsNullOrEmpty(diff.ToString()))
+                    if (!diff.IsEmpty())
                     {
                         Log.Info("Configuration changed: \n" + diff);
                     }

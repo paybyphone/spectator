@@ -41,12 +41,12 @@ namespace spectator.Configuration
                 summaryStringBuilder.AppendFormat("Interval: '{0}' → '{1}'\r\n", _first.Interval, _second.Interval);
             }
 
-            if (!_first.Metrics.SequenceEqual(_second.Metrics))
+            var removed = _first.Metrics.Where(m => _second.Metrics.All(o => o.Template != m.Template || o.Path != m.Path)).ToList();
+            var added = _second.Metrics.Where(m => _first.Metrics.All(o => o.Template != m.Template || o.Path != m.Path)).ToList();
+
+            if (removed.Any() || added.Any())
             {
                 summaryStringBuilder.AppendLine("Metrics:");
-
-                var removed = _first.Metrics.Where(m => _second.Metrics.All(o => o.Template != m.Template || o.Path != m.Path)).ToList();
-                var added = _second.Metrics.Where(m => _first.Metrics.All(o => o.Template != m.Template || o.Path != m.Path)).ToList();
 
                 foreach (var a in added)
                 {
