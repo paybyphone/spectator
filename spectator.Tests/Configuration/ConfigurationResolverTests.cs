@@ -58,7 +58,11 @@ namespace spectator.Tests.Configuration
             var resolver = new ConfigurationResolver();
             var configuration = resolver.Resolve();
 
-            Assert.That(configuration, Is.TypeOf<CombinedSpectatorConfiguration>());
+            Assert.That(configuration, Is.TypeOf<ExpiringConfigurationDecorator>());
+
+            var expiringConfig = (ExpiringConfigurationDecorator)configuration;
+            var innerConfiguration = expiringConfig.InnerConfiguration;
+            Assert.That(innerConfiguration, Is.TypeOf<CombinedSpectatorConfiguration>());
         }
     }
 }

@@ -15,26 +15,29 @@ namespace spectator.Configuration
         {
             var configRefresh = TimeSpan.Parse(ConfigurationManager.AppSettings[@"Spectator.ConfigurationRefresh"] ?? @"00:00:00");
 
-            var consulHost = ConfigurationManager.AppSettings[@"Spectator.ConsulHost"];
-            var consulKey = ConfigurationManager.AppSettings[@"Spectator.ConsulKey"];
-
-            var jsonConfigFile = ConfigurationManager.AppSettings[@"Spectator.JsonConfigFile"] ?? DefaultSpectatorConfigFile;
-
-            var baseJsonConfigFile = JsonSpectatorConfiguration.LoadFrom(BaseSpectatorConfigFile);
-
-            ISpectatorConfiguration config =
-                new ExpiringConfigurationDecorator(() =>
-                    Fallback.On(() => ConsulSpectatorConfiguration.LoadFrom(consulHost, consulKey, saveTo: jsonConfigFile),
-                                () => JsonSpectatorConfiguration.LoadFrom(jsonConfigFile)), configRefresh);
-
-            if (!(baseJsonConfigFile is EmptyConfiguration))
-            {
-                Log.InfoFormat("Using combined configuration using base config file '{0}' ({1} metrics) and overriding with loaded {2} metrics", BaseSpectatorConfigFile, baseJsonConfigFile.Metrics.Count, config.Metrics.Count);
-
-                return new CombinedSpectatorConfiguration(baseJsonConfigFile, config);
-            }
+            ISpectatorConfiguration config = new ExpiringConfigurationDecorator(InnerResolve, configRefresh);
 
             return config;
+        }
+
+        private ISpectatorConfiguration InnerResolve()
+        {
+            var consulHost = ConfigurationManager.AppSettings[@"Spectator.ConsulHost"];
+            var consulKey = ConfigurationManager.AppSettings[@"Spectator.ConsulKey"];
+            var jsonConfigFile = ConfigurationManager.AppSettings[@"Spectator.JsonConfigFile"] ?? DefaultSpectatorConfigFile;
+
+            var baseJsonConfig = JsonSpectatorConfiguration.LoadFrom(BaseSpectatorConfigFile);
+            var overrideJsonConfig = Fallback.On(() => ConsulSpectatorConfiguration.LoadFrom(consulHost, consulKey, saveTo: jsonConfigFile),
+                                                 () => JsonSpectatorConfiguration.LoadFrom(jsonConfigFile));
+
+            if (baseJsonConfig is EmptyConfiguration)
+            {
+                return overrideJsonConfig;
+            }
+
+            Log.InfoFormat("Using combined configuration using base config file '{0}' ({1} metrics) and overriding with loaded {2} metrics", BaseSpectatorConfigFile, baseJsonConfig.Metrics.Count, overrideJsonConfig.Metrics.Count);
+
+            return new CombinedSpectatorConfiguration(baseJsonConfig, overrideJsonConfig);
         }
     }
 }
