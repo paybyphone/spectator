@@ -1,6 +1,7 @@
 ﻿using System;
 using spectator.Configuration;
 using spectator.Sources.PerformanceCounters;
+using spectator.Sources.WMI;
 
 namespace spectator.Sources
 {

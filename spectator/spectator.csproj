@@ -101,8 +101,8 @@
     <Compile Include="Sources\PerformanceCounters\PerformanceCounterSource.cs" />
     <Compile Include="Sources\QueryableSourceFactory.cs" />
     <Compile Include="Sources\Sample.cs" />
-    <Compile Include="Sources\WindowsManagementInstrumentationDefinition.cs" />
-    <Compile Include="Sources\WindowsManagementInstrumentationSource.cs" />
+    <Compile Include="Sources\WMI\WindowsManagementInstrumentationDefinition.cs" />
+    <Compile Include="Sources\WMI\WindowsManagementInstrumentationSource.cs" />
     <Compile Include="SpectatorService.cs" />
     <Compile Include="Metrics\StatsdPublisher.cs" />
   </ItemGroup>

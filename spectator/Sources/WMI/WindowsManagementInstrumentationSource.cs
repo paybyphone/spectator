@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Management;
 
-namespace spectator.Sources
+namespace spectator.Sources.WMI
 {
     public class WindowsManagementInstrumentationSource : IQueryableSource
     {

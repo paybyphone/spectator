@@ -1,6 +1,7 @@
 ﻿using System;
 using NUnit.Framework;
 using spectator.Sources;
+using spectator.Sources.WMI;
 
 namespace spectator.Tests.Sources
 {
