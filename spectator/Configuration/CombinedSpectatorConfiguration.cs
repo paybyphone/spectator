@@ -20,7 +20,7 @@ namespace spectator.Configuration
 
         public IList<MetricConfiguration> Metrics { get; }
 
-        private IList<MetricConfiguration> CombineMetricConfigurations(IList<MetricConfiguration> baseMetrics, IList<MetricConfiguration> overrideMetrics)
+        private static IList<MetricConfiguration> CombineMetricConfigurations(IList<MetricConfiguration> baseMetrics, IList<MetricConfiguration> overrideMetrics)
         {
             if (overrideMetrics.IsNull() || !overrideMetrics.Any())
             {
