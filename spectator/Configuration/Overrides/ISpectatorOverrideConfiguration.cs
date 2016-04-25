@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 
-namespace spectator.Configuration
+namespace spectator.Configuration.Overrides
 {
     public interface ISpectatorOverrideConfiguration
     {

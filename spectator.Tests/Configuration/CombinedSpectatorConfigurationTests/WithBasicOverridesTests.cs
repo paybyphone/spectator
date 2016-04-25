@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using NUnit.Framework;
 using spectator.Configuration;
+using spectator.Configuration.Overrides;
 
 namespace spectator.Tests.Configuration.CombinedSpectatorConfigurationTests
 {
@@ -8,7 +9,6 @@ namespace spectator.Tests.Configuration.CombinedSpectatorConfigurationTests
     public class WithBasicOverridesTests
     {
         private ISpectatorOverrideConfiguration _overrideConfig;
-        private ISpectatorOverrideConfiguration _emptyOverrideConfig;
         private ISpectatorConfiguration _baseConfig;
         private CombinedSpectatorConfiguration _combinedConfig;
 

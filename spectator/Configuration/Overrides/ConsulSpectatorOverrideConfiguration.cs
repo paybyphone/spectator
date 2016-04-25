@@ -5,16 +5,16 @@ using Consul;
 using log4net;
 using spectator.Infrastructure;
 
-namespace spectator.Configuration
+namespace spectator.Configuration.Overrides
 {
-    public class ConsulSpectatorConfiguration : ISpectatorOverrideConfiguration
+    public class ConsulSpectatorOverrideConfiguration : ISpectatorOverrideConfiguration
     {
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly ISpectatorConfiguration _innerConfiguration;
         private readonly string _configContents;
 
-        public ConsulSpectatorConfiguration(string host, string key)
+        public ConsulSpectatorOverrideConfiguration(string host, string key)
         {
             var client = string.IsNullOrEmpty(host) ? new Client() : new Client(new ConsulClientConfiguration { Address = host });
 
@@ -49,7 +49,7 @@ namespace spectator.Configuration
                 throw new ArgumentException("A consul host or key must be provided to use a consul configuration.");
             }
 
-            var config = new ConsulSpectatorConfiguration(host, key);
+            var config = new ConsulSpectatorOverrideConfiguration(host, key);
 
             config.Save(saveTo);
 

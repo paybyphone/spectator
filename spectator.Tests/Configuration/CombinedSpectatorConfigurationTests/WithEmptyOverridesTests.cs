@@ -1,6 +1,7 @@
 ﻿using System.Linq;
 using NUnit.Framework;
 using spectator.Configuration;
+using spectator.Configuration.Overrides;
 
 namespace spectator.Tests.Configuration.CombinedSpectatorConfigurationTests
 {
