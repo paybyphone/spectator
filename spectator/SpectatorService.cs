@@ -71,16 +71,18 @@ namespace spectator
 
                     var metricValues = queryableSource.QueryValue(metric.Path).ToList();
 
-                    Log.DebugFormat("  -> Queried '{0}' from '{1}', resulting in {2} metric samples (unfiltered)", metric.Path, metric.Source, metricValues.Count());
+                    Log.DebugFormat("  -> Queried '{0}' from '{1}', resulting in {2} metric samples (unfiltered)", metric.Path, metric.Source, metricValues.Count);
 
                     foreach (var sample in metricValues)
                     {
-                        if (Included(metric.Include, sample.Instance) && !Excluded(metric.Exclude, sample.Instance))
+                        if (!Included(metric.Include, sample.Instance) || Excluded(metric.Exclude, sample.Instance))
                         {
-                            var metricName = _metricFormatter.Format(metricPrefix, sample.Instance, metric.Template);
-
-                            allMetrics.Add(new Metric(metricName, sample.Value, metric.Type));
+                            continue;
                         }
+
+                        var metricName = _metricFormatter.Format(metricPrefix, sample.Instance, metric.Template);
+
+                        allMetrics.Add(new Metric(metricName, sample.Value, metric.Type));
                     }
                 });
 
@@ -97,12 +99,12 @@ namespace spectator
             }
         }
 
-        private bool Included(string includePattern, string instance)
+        private static bool Included(string includePattern, string instance)
         {
             return string.IsNullOrEmpty(includePattern) || Regex.IsMatch(instance, includePattern);
         }
 
-        private bool Excluded(string excludePattern, string instance)
+        private static bool Excluded(string excludePattern, string instance)
         {
             return !string.IsNullOrEmpty(excludePattern) && Regex.IsMatch(instance, excludePattern);
         }

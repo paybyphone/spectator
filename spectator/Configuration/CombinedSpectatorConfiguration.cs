@@ -8,18 +8,17 @@ namespace spectator.Configuration
     public class CombinedSpectatorConfiguration : ISpectatorConfiguration
     {
         private readonly ISpectatorConfiguration _baseConfiguration;
-        private readonly ISpectatorConfiguration _overrideConfiguration;
-        private readonly IList<MetricConfiguration> _combinedMetricConfigurations;
+        private readonly ISpectatorOverrideConfiguration _overrideConfiguration;
 
-        public string StatsdHost { get { return _overrideConfiguration.StatsdHost ?? _baseConfiguration.StatsdHost; } }
+        public string StatsdHost => _overrideConfiguration.StatsdHost ?? _baseConfiguration.StatsdHost;
 
-        public int StatsdPort { get { return _overrideConfiguration.StatsdPort; } }
+        public int StatsdPort => _overrideConfiguration.StatsdPort ?? _baseConfiguration.StatsdPort;
 
-        public string MetricPrefix { get { return _overrideConfiguration.MetricPrefix ?? _baseConfiguration.MetricPrefix; } }
+        public string MetricPrefix => _overrideConfiguration.MetricPrefix ?? _baseConfiguration.MetricPrefix;
 
-        public TimeSpan Interval { get { return _overrideConfiguration.Interval; } }
+        public TimeSpan Interval => _overrideConfiguration.Interval ?? _baseConfiguration.Interval;
 
-        public IList<MetricConfiguration> Metrics { get { return _combinedMetricConfigurations; } }
+        public IList<MetricConfiguration> Metrics { get; }
 
         private IList<MetricConfiguration> CombineMetricConfigurations(IList<MetricConfiguration> baseMetrics, IList<MetricConfiguration> overrideMetrics)
         {
@@ -52,12 +51,12 @@ namespace spectator.Configuration
             return combinedMetricConfiguration;
         }
 
-        public CombinedSpectatorConfiguration(ISpectatorConfiguration baseConfiguration, ISpectatorConfiguration overrideConfiguration)
+        public CombinedSpectatorConfiguration(ISpectatorConfiguration baseConfiguration, ISpectatorOverrideConfiguration overrideConfiguration)
         {
             _baseConfiguration = baseConfiguration;
             _overrideConfiguration = overrideConfiguration;
 
-            _combinedMetricConfigurations = CombineMetricConfigurations(_baseConfiguration.Metrics, _overrideConfiguration.Metrics);
+            Metrics = CombineMetricConfigurations(_baseConfiguration.Metrics, _overrideConfiguration.Metrics);
         }
     }
 }

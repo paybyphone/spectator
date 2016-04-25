@@ -2,19 +2,20 @@
 using NUnit.Framework;
 using spectator.Configuration;
 
-namespace spectator.Tests.Configuration
+namespace spectator.Tests.Configuration.CombinedSpectatorConfigurationTests
 {
     [TestFixture]
-    public class CombinedSpectatorConfigurationTests
+    public class WithBasicOverridesTests
     {
-        private ISpectatorConfiguration _overrideConfig;
+        private ISpectatorOverrideConfiguration _overrideConfig;
+        private ISpectatorOverrideConfiguration _emptyOverrideConfig;
         private ISpectatorConfiguration _baseConfig;
         private CombinedSpectatorConfiguration _combinedConfig;
 
         [SetUp]
         public void SetUp()
         {
-            _baseConfig = JsonSpectatorConfiguration.LoadFromString(@"{
+            _baseConfig = JsonSpectatorConfiguration.LoadConfigFromString(@"{
                       ""statsdHost"": ""basehost"",
                       ""statsdPort"": 8125,
                       ""metricPrefix"": ""base.prefix"",
@@ -35,7 +36,7 @@ namespace spectator.Tests.Configuration
                       ]
                     }");
 
-            _overrideConfig = JsonSpectatorConfiguration.LoadFromString(@"{
+            _overrideConfig = JsonSpectatorConfiguration.LoadConfigFromString(@"{
                       ""statsdHost"": ""overridehost"",
                       ""statsdPort"": 8126,
                       ""metricPrefix"": ""override.prefix"",

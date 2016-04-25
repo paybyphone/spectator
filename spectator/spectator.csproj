@@ -69,9 +69,11 @@
     <Compile Include="Configuration\ConfigurationExtensions.cs" />
     <Compile Include="Configuration\ConfigurationResolver.cs" />
     <Compile Include="Configuration\ConsulSpectatorConfiguration.cs" />
+    <Compile Include="Configuration\EmptyOverrideConfiguration.cs" />
     <Compile Include="Configuration\EmptyConfiguration.cs" />
     <Compile Include="Configuration\ExpiringConfigurationDecorator.cs" />
     <Compile Include="Configuration\IConfigurationResolver.cs" />
+    <Compile Include="Configuration\ISpectatorOverrideConfiguration.cs" />
     <Compile Include="Configuration\ISpectatorConfiguration.cs" />
     <Compile Include="Configuration\JsonSpectatorConfiguration.cs" />
     <Compile Include="Configuration\MetricConfiguration.cs" />

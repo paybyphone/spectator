@@ -26,14 +26,9 @@ namespace spectator.Configuration
             var consulKey = ConfigurationManager.AppSettings[@"Spectator.ConsulKey"];
             var jsonConfigFile = ConfigurationManager.AppSettings[@"Spectator.JsonConfigFile"] ?? DefaultSpectatorConfigFile;
 
-            var baseJsonConfig = JsonSpectatorConfiguration.LoadFrom(BaseSpectatorConfigFile);
+            var baseJsonConfig = JsonSpectatorConfiguration.LoadConfigFrom(BaseSpectatorConfigFile);
             var overrideJsonConfig = Fallback.On(() => ConsulSpectatorConfiguration.LoadFrom(consulHost, consulKey, saveTo: jsonConfigFile),
-                                                 () => JsonSpectatorConfiguration.LoadFrom(jsonConfigFile));
-
-            if (baseJsonConfig is EmptyConfiguration)
-            {
-                return overrideJsonConfig;
-            }
+                                                 () => JsonSpectatorConfiguration.LoadOverrideFrom(jsonConfigFile));
 
             Log.InfoFormat("Using combined configuration using base config file '{0}' ({1} metrics) and overriding with loaded {2} metrics", BaseSpectatorConfigFile, baseJsonConfig.Metrics.Count, overrideJsonConfig.Metrics.Count);
 

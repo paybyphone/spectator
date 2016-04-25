@@ -20,5 +20,19 @@ namespace spectator.Configuration
                 return fallbackFactory();
             }
         }
+
+        public static ISpectatorOverrideConfiguration On(Func<ISpectatorOverrideConfiguration> configFactory, Func<ISpectatorOverrideConfiguration> fallbackFactory)
+        {
+            try
+            {
+                return configFactory();
+            }
+            catch (Exception ex)
+            {
+                Log.WarnFormat("Couldn't obtain primary configuration ('{0}'), falling back to secondary configuration", ex.Message);
+
+                return fallbackFactory();
+            }
+        }
     }
 }

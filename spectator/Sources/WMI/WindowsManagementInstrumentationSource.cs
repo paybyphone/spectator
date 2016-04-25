@@ -12,8 +12,9 @@ namespace spectator.Sources.WMI
 
             using (var searcher = new ManagementObjectSearcher("select * from " + definition.QuerySource))
             {
-                foreach (ManagementObject managedObject in searcher.Get())
+                foreach (var foundObject in searcher.Get())
                 {
+                    var managedObject = (ManagementObject) foundObject;
                     var value = GetInfo(managedObject, definition.PropertyName);
 
                     managedObject.Dispose();
@@ -21,13 +22,13 @@ namespace spectator.Sources.WMI
                     return new[] {new Sample(string.Empty, value)};
                 }
 
-                throw new NotSupportedException(string.Format("Could not find property '{0}' on any managed object in query source '{1}'", definition.PropertyName, definition.QuerySource));
+                throw new NotSupportedException($"Could not find property '{definition.PropertyName}' on any managed object in query source '{definition.QuerySource}'");
             }
         }
 
-        private static double GetInfo(ManagementObject managedObject, string property)
+        private static double GetInfo(ManagementBaseObject managedObject, string property)
         {
-            object manageObjectProperty = managedObject[property];
+            var manageObjectProperty = managedObject[property];
 
             double value = (ulong)manageObjectProperty;
 

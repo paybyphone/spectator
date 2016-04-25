@@ -9,14 +9,15 @@ namespace spectator.Infrastructure
         {
             var obj = objectExpression.Compile()();
 
-            if (obj == null)
+            if (obj != null)
             {
-                var memberExpression = objectExpression.Body as MemberExpression;
-                var objectName = memberExpression.Member.Name;
-
-                throw new ArgumentNullException(objectName);
+                return;
             }
-        }
 
+            var memberExpression = objectExpression.Body as MemberExpression;
+            var objectName = memberExpression.Member.Name;
+
+            throw new ArgumentNullException(objectName);
+        }
     }
 }

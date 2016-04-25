@@ -130,7 +130,7 @@ namespace spectator.Tests.Configuration
         [Test]
         public void when_given_two_configurations_with_differences_then_a_summary_is_created()
         {
-            var first = JsonSpectatorConfiguration.LoadFromString(@"{
+            var first = JsonSpectatorConfiguration.LoadConfigFromString(@"{
                       ""statsdHost"": ""basehost"",
                       ""statsdPort"": 8125,
                       ""metricPrefix"": ""base.prefix"",
@@ -145,7 +145,7 @@ namespace spectator.Tests.Configuration
                       ]
                     }");
 
-            var second = JsonSpectatorConfiguration.LoadFromString(@"{
+            var second = JsonSpectatorConfiguration.LoadConfigFromString(@"{
                       ""statsdHost"": ""overridehost"",
                       ""statsdPort"": 8126,
                       ""metricPrefix"": ""override.prefix"",
