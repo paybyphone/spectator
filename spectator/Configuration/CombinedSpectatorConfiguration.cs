@@ -21,6 +21,14 @@ namespace spectator.Configuration
 
         public IList<MetricConfiguration> Metrics { get; }
 
+        public CombinedSpectatorConfiguration(ISpectatorConfiguration baseConfiguration, ISpectatorOverrideConfiguration overrideConfiguration)
+        {
+            _baseConfiguration = baseConfiguration;
+            _overrideConfiguration = overrideConfiguration;
+
+            Metrics = CombineMetricConfigurations(_baseConfiguration.Metrics, _overrideConfiguration.Metrics);
+        }
+
         private static IList<MetricConfiguration> CombineMetricConfigurations(IList<MetricConfiguration> baseMetrics, IList<MetricConfiguration> overrideMetrics)
         {
             if (overrideMetrics.IsNull() || !overrideMetrics.Any())
@@ -50,14 +58,6 @@ namespace spectator.Configuration
             }
 
             return combinedMetricConfiguration;
-        }
-
-        public CombinedSpectatorConfiguration(ISpectatorConfiguration baseConfiguration, ISpectatorOverrideConfiguration overrideConfiguration)
-        {
-            _baseConfiguration = baseConfiguration;
-            _overrideConfiguration = overrideConfiguration;
-
-            Metrics = CombineMetricConfigurations(_baseConfiguration.Metrics, _overrideConfiguration.Metrics);
         }
     }
 }

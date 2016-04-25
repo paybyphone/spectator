@@ -26,12 +26,6 @@ namespace spectator.Tests.Configuration.CombinedSpectatorConfigurationTests
                           ""path"": ""\\Processor(_Total)\\Interrupts/sec"",
                           ""type"": ""gauge"",
                           ""template"": ""base.performance.counter""
-                        },
-                        {
-                          ""source"": ""performanceCounter"",
-                          ""path"": ""\\Processor(_Total)\\Interrupts/sec"",
-                          ""type"": ""gauge"",
-                          ""template"": ""overriden.performance.counter""
                         }
                       ]
                     }");
@@ -45,25 +39,25 @@ namespace spectator.Tests.Configuration.CombinedSpectatorConfigurationTests
         }
 
         [Test]
-        public void the_base_statsd_host_should_be_used()
+        public void the_base_statsd_host_should_still_be_used()
         {
             Assert.That(_combinedConfig.StatsdHost, Is.EqualTo(_baseConfig.StatsdHost));
         }
 
         [Test]
-        public void the_base_statsd_port_should_be_used()
+        public void the_base_statsd_port_should_still_be_used()
         {
             Assert.That(_combinedConfig.StatsdPort, Is.EqualTo(_baseConfig.StatsdPort));
         }
 
         [Test]
-        public void the_base_metric_prefix_should_be_used()
+        public void the_base_metric_prefix_should_still_be_used()
         {
             Assert.That(_combinedConfig.MetricPrefix, Is.EqualTo(_baseConfig.MetricPrefix));
         }
 
         [Test]
-        public void the_base_interval_should_be_used()
+        public void the_base_interval_should_still_be_used()
         {
             Assert.That(_combinedConfig.Interval, Is.EqualTo(_baseConfig.Interval));
         }
@@ -71,7 +65,7 @@ namespace spectator.Tests.Configuration.CombinedSpectatorConfigurationTests
         [Test]
         public void the_metrics_from_the_base_and_override_should_be_combined_together()
         {
-            Assert.That(_combinedConfig.Metrics.Count, Is.EqualTo(2));
+            Assert.That(_combinedConfig.Metrics.Count, Is.EqualTo(1));
         }
 
         [Test]

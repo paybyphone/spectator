@@ -28,13 +28,15 @@ namespace spectator.Sources.WMI
 
         private void CanOnlyContainAlphanumericOrUnderscore(string querySource)
         {
+            Must.NotBeNull(() => querySource);
+
             if (!querySource.All(l => char.IsLetterOrDigit(l) || l == '_'))
             {
                 throw new ArgumentException("The query source specified for a WMI query can only contain letters, digits or underscore ('_')", querySource);
             }
         }
 
-        public string QuerySource { get; private set; }
+        public string QuerySource { get; }
 
         public string PropertyName { get; private set; }
     }

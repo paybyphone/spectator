@@ -39,8 +39,10 @@ namespace spectator.Metrics
             return formatted;
         }
 
-        private string Sanitise(string formatted)
+        private static string Sanitise(string formatted)
         {
+            Must.NotBeNull(() => formatted);
+
             var charArray = formatted.ToCharArray();
 
             charArray = Array.FindAll(charArray, c => char.IsLetterOrDigit(c)
