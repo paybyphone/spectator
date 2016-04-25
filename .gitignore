@@ -13,3 +13,5 @@
 *.TMP
 packages/
 .vs/
+tools/
+!tools/packages.config
