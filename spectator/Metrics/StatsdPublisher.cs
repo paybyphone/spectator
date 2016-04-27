@@ -32,6 +32,8 @@ namespace spectator.Metrics
                 default:
                     throw new NotSupportedException();
             }
+
+            throw new NotSupportedException();
         }
     }
 }

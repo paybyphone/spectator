@@ -2,6 +2,7 @@
 using Moq;
 using NUnit.Framework;
 using spectator.Configuration;
+using spectator.Configuration.Overrides;
 
 namespace spectator.Tests.Configuration
 {
