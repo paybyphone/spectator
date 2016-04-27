@@ -10,7 +10,7 @@ namespace spectator.Tests.Configuration
         [Test]
         public void can_load_json_formatted_configuration()
         {
-            var config = JsonSpectatorConfiguration.LoadFromString(
+            var config = JsonSpectatorConfiguration.LoadConfigFromString(
                   @"{
                       ""statsdHost"": ""localhost"",
                       ""statsdPort"": 8125,

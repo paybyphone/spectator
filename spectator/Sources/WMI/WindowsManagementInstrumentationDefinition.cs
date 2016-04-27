@@ -2,7 +2,7 @@
 using System.Linq;
 using spectator.Infrastructure;
 
-namespace spectator.Sources
+namespace spectator.Sources.WMI
 {
     internal class WindowsManagementInstrumentationDefinition
     {

@@ -35,29 +35,32 @@ namespace spectator.Configuration
         private T Get<T>(Func<ISpectatorConfiguration, T> configValue)
         {
             var now = DateTimeOffset.UtcNow;
-            if (now > _expiration)
+
+            if (now <= _expiration)
             {
-                Log.Info("Configuration has expired, refreshing from source");
-
-                var newConfig = _spectatorConfigurationFactory();
-
-                _expiration = now + _expirationInterval;
-
-                Log.Info("Configuration loaded.");
-
-                if (_configurationInstance != null)
-                {
-                    var diff = new ConfigurationDifferenceSummary(_configurationInstance, newConfig);
-
-                    if (!diff.IsEmpty())
-                    {
-                        Log.Info("Configuration changed: \n" + diff);
-                    }
-                }
-
-                _configurationInstance = newConfig;
-                Log.InfoFormat("Expires next at: {0}", _expiration.ToString("o"));
+                return configValue(_configurationInstance);
             }
+
+            Log.Info("Configuration has expired, refreshing from source");
+
+            var newConfig = _spectatorConfigurationFactory();
+
+            _expiration = now + _expirationInterval;
+
+            Log.Info("Configuration loaded.");
+
+            if (_configurationInstance != null)
+            {
+                var diff = new ConfigurationDifferenceSummary(_configurationInstance, newConfig);
+
+                if (!diff.IsEmpty())
+                {
+                    Log.Info("Configuration changed: \n" + diff);
+                }
+            }
+
+            _configurationInstance = newConfig;
+            Log.InfoFormat("Expires next at: {0}", _expiration.ToString("o"));
 
             return configValue(_configurationInstance);
         }

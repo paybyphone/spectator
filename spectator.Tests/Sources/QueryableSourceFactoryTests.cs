@@ -2,6 +2,7 @@
 using spectator.Configuration;
 using spectator.Sources;
 using spectator.Sources.PerformanceCounters;
+using spectator.Sources.WMI;
 
 namespace spectator.Tests.Sources
 {

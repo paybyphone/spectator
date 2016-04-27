@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace spectator.Tests
+﻿namespace spectator.Tests
 {
     public static class Some
     {

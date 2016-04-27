@@ -68,10 +68,12 @@
     <Compile Include="Configuration\ConfigurationDifferenceSummary.cs" />
     <Compile Include="Configuration\ConfigurationExtensions.cs" />
     <Compile Include="Configuration\ConfigurationResolver.cs" />
-    <Compile Include="Configuration\ConsulSpectatorConfiguration.cs" />
+    <Compile Include="Configuration\Overrides\ConsulSpectatorOverrideConfiguration.cs" />
+    <Compile Include="Configuration\EmptyOverrideConfiguration.cs" />
     <Compile Include="Configuration\EmptyConfiguration.cs" />
     <Compile Include="Configuration\ExpiringConfigurationDecorator.cs" />
     <Compile Include="Configuration\IConfigurationResolver.cs" />
+    <Compile Include="Configuration\Overrides\ISpectatorOverrideConfiguration.cs" />
     <Compile Include="Configuration\ISpectatorConfiguration.cs" />
     <Compile Include="Configuration\JsonSpectatorConfiguration.cs" />
     <Compile Include="Configuration\MetricConfiguration.cs" />
@@ -101,8 +103,8 @@
     <Compile Include="Sources\PerformanceCounters\PerformanceCounterSource.cs" />
     <Compile Include="Sources\QueryableSourceFactory.cs" />
     <Compile Include="Sources\Sample.cs" />
-    <Compile Include="Sources\WindowsManagementInstrumentationDefinition.cs" />
-    <Compile Include="Sources\WindowsManagementInstrumentationSource.cs" />
+    <Compile Include="Sources\WMI\WindowsManagementInstrumentationDefinition.cs" />
+    <Compile Include="Sources\WMI\WindowsManagementInstrumentationSource.cs" />
     <Compile Include="SpectatorService.cs" />
     <Compile Include="Metrics\StatsdPublisher.cs" />
   </ItemGroup>
@@ -113,6 +115,7 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it.
        Other similar extension points exist, see Microsoft.Common.targets.

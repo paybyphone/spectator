@@ -5,16 +5,16 @@ using Consul;
 using log4net;
 using spectator.Infrastructure;
 
-namespace spectator.Configuration
+namespace spectator.Configuration.Overrides
 {
-    public class ConsulSpectatorConfiguration : ISpectatorConfiguration
+    public class ConsulSpectatorOverrideConfiguration : ISpectatorOverrideConfiguration
     {
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         private readonly ISpectatorConfiguration _innerConfiguration;
         private readonly string _configContents;
 
-        public ConsulSpectatorConfiguration(string host, string key)
+        public ConsulSpectatorOverrideConfiguration(string host, string key)
         {
             var client = string.IsNullOrEmpty(host) ? new Client() : new Client(new ConsulClientConfiguration { Address = host });
 
@@ -23,18 +23,18 @@ namespace spectator.Configuration
 
             Log.InfoFormat("Using configuration read from consul host '{0}', in key '{1}'", host, key);
 
-            _innerConfiguration = JsonSpectatorConfiguration.LoadFromString(_configContents);
+            _innerConfiguration = JsonSpectatorConfiguration.LoadConfigFromString(_configContents);
         }
 
-        public string StatsdHost { get { return _innerConfiguration.StatsdHost; } }
+        public string StatsdHost => _innerConfiguration.StatsdHost;
 
-        public int StatsdPort { get { return _innerConfiguration.StatsdPort; } }
+        public int? StatsdPort => _innerConfiguration.StatsdPort;
 
-        public string MetricPrefix { get { return _innerConfiguration.MetricPrefix; } }
+        public string MetricPrefix => _innerConfiguration.MetricPrefix;
 
-        public TimeSpan Interval { get { return _innerConfiguration.Interval; } }
+        public TimeSpan? Interval => _innerConfiguration.Interval;
 
-        public IList<MetricConfiguration> Metrics { get { return _innerConfiguration.Metrics; } }
+        public IList<MetricConfiguration> Metrics => _innerConfiguration.Metrics;
 
         private void Save(string destinationPath)
         {
@@ -42,14 +42,14 @@ namespace spectator.Configuration
             fileAdapter.WriteAllText(destinationPath, _configContents);
         }
 
-        public static ISpectatorConfiguration LoadFrom(string host, string key, string saveTo)
+        public static ISpectatorOverrideConfiguration LoadFrom(string host, string key, string saveTo)
         {
             if (string.IsNullOrEmpty(host) && string.IsNullOrEmpty(key))
             {
                 throw new ArgumentException("A consul host or key must be provided to use a consul configuration.");
             }
 
-            var config = new ConsulSpectatorConfiguration(host, key);
+            var config = new ConsulSpectatorOverrideConfiguration(host, key);
 
             config.Save(saveTo);
 

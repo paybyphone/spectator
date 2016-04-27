@@ -8,12 +8,13 @@ Spectator is a Windows Service for taking measurements from Performance Counters
 
 Features:
 * Installs as a Windows service (via Topshelf)
-* Supports reading metric values from Performance Counters
-* Supports reading values from WMI (via ManagedObjectSearcher queries)
+* Supports reading metric values from Performance Counters or from from WMI (via ManagedObjectSearcher queries)
 * Pushes metrics via UDP to any Statsd-compatible server
 * Customisable metric names via templates
-* Exclude Performance Counter instances from being measured, using exclusion patterns
-* JSON configuration via local file or stored in a Consul key/value store
+* Exclude particular Performance Counter instances from being measured, using exclusion and/or inclusion patterns
+* JSON configuration via local file (`base-spectator-config.json`)
+* Dynamic configuration via override configurations kept in a Consul key/value store
+  * Local caching of remote override configuration in case of temporary Consul outage
 
 Quick Start
 -----------
@@ -40,8 +41,8 @@ spectator.exe start
 ```
 
 
-Configuration Example
----------------------
+Base Configuration Example
+--------------------------
 
 ```
 {

@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using spectator.Sources;
 using spectator.Sources.PerformanceCounters;
 
 namespace spectator.Tests.Sources

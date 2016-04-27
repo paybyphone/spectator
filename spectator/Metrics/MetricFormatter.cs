@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using spectator.Infrastructure;
 
@@ -25,12 +26,7 @@ namespace spectator.Metrics
 
         private string FormatTemplatedValues(string formatted)
         {
-            foreach (var replacement in _registeredReplacements)
-            {
-                formatted = formatted.Replace("{" + replacement.Key + "}", replacement.Value.ToLowerInvariant());
-            }
-
-            return formatted;
+            return _registeredReplacements.Aggregate(formatted, (current, replacement) => current.Replace("{" + replacement.Key + "}", replacement.Value.ToLowerInvariant()));
         }
 
         private static string FormatInstanceName(string instance, string formatted)
@@ -45,7 +41,7 @@ namespace spectator.Metrics
 
         private string Sanitise(string formatted)
         {
-            char[] charArray = formatted.ToCharArray();
+            var charArray = formatted.ToCharArray();
 
             charArray = Array.FindAll(charArray, c => char.IsLetterOrDigit(c)
                                                    || c == '-'

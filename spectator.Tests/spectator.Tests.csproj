@@ -50,7 +50,8 @@
     <Reference Include="System.Core" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Configuration\CombinedSpectatorConfigurationTests.cs" />
+    <Compile Include="Configuration\CombinedSpectatorConfigurationTests\WithEmptyOverridesTests.cs" />
+    <Compile Include="Configuration\CombinedSpectatorConfigurationTests\WithBasicOverridesTests.cs" />
     <Compile Include="Configuration\ConfigurationDifferenceSummaryTests.cs" />
     <Compile Include="Configuration\ConfigurationResolverTests.cs" />
     <Compile Include="Configuration\EmptyConfigurationTests.cs" />
