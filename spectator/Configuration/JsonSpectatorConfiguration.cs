@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using log4net;
 using Newtonsoft.Json;
 using spectator.Configuration.Overrides;
 using spectator.Infrastructure;
@@ -8,6 +9,8 @@ namespace spectator.Configuration
 {
     public class JsonSpectatorConfiguration : ISpectatorOverrideConfiguration, ISpectatorConfiguration
     {
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
+
         public string StatsdHost { get; set; }
 
         int ISpectatorConfiguration.StatsdPort => StatsdPort ?? 0;
@@ -24,17 +27,26 @@ namespace spectator.Configuration
 
         public static ISpectatorConfiguration LoadConfigFrom(string path)
         {
+            Log.Debug($"Loading JSON configuration from '{path}'");
+
+            return LoadJsonConfig<ISpectatorConfiguration>(path, () => new EmptyConfiguration(), LoadConfigFromString);
+        }
+
+        private static T LoadJsonConfig<T>(string path, Func<T> emptyConfigurationFactory, Func<string, T> loaderMethod)
+        {
             var fileAdapter = new FileAdapter();
 
             try
             {
                 var configContents = fileAdapter.ReadAllText(path);
 
-                return LoadConfigFromString(configContents);
+                return loaderMethod(configContents);
             }
-            catch
+            catch(Exception ex)
             {
-                return new EmptyConfiguration();
+                Log.Warn($"Exception occurred loading JSON configuration file from '{path}' ('{ex.Message}'), assuming an empty configuration.");
+
+                return emptyConfigurationFactory();
             }
         }
 
@@ -45,18 +57,9 @@ namespace spectator.Configuration
 
         public static ISpectatorOverrideConfiguration LoadOverrideFrom(string path)
         {
-            var fileAdapter = new FileAdapter();
+            Log.Debug($"Loading JSON override configuration from '{path}'");
 
-            try
-            {
-                var configContents = fileAdapter.ReadAllText(path);
-
-                return LoadConfigFromString(configContents);
-            }
-            catch
-            {
-                return new EmptyOverrideConfiguration();
-            }
+            return LoadJsonConfig<ISpectatorOverrideConfiguration>(path, () => new EmptyOverrideConfiguration(), LoadConfigFromString);
         }
     }
 }
