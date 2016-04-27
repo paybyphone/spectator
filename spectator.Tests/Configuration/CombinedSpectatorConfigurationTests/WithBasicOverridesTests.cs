@@ -116,8 +116,10 @@ namespace spectator.Tests.Configuration.CombinedSpectatorConfigurationTests
             var overridenMetricInCombined = _combinedConfig.Metrics.SingleOrDefault(m => m.Template.Equals("overriden.performance.counter"));
 
             Assert.That(overridenMetricInCombined, Is.Not.Null);
+            // ReSharper disable PossibleNullReferenceException
             Assert.That(overridenMetricInCombined.Path, Is.Not.EqualTo(overridenMetricInBase.Path));
             Assert.That(overridenMetricInCombined.Path, Is.EqualTo(overridenMetricInOverride.Path));
+            // ReSharper enable PossibleNullReferenceException
         }
     }
 }

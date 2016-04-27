@@ -34,15 +34,12 @@ namespace spectator.Sources.PerformanceCounters
             }
         }
 
-        public string CategoryName { get; private set; }
+        public string CategoryName { get; }
 
         public string CounterName { get; private set; }
 
-        public string InstanceName { get; private set; }
+        public string InstanceName { get; }
 
-        public bool AllInstances
-        {
-            get { return InstanceName == "*"; }
-        }
+        public bool AllInstances => InstanceName == "*";
     }
 }

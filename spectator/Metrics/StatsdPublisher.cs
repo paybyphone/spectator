@@ -25,6 +25,12 @@ namespace spectator.Metrics
                 case MetricType.Gauge:
                     _statsdClient.Send<Statsd.Gauge>(metric.Name, metric.Value);
                     return;
+                case MetricType.Count:
+                    break;
+                case MetricType.Timing:
+                    break;
+                default:
+                    throw new NotSupportedException();
             }
 
             throw new NotSupportedException();

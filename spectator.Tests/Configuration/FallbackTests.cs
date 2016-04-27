@@ -2,6 +2,7 @@
 using Moq;
 using NUnit.Framework;
 using spectator.Configuration;
+using spectator.Configuration.Overrides;
 
 namespace spectator.Tests.Configuration
 {
@@ -9,14 +10,14 @@ namespace spectator.Tests.Configuration
     public class FallbackTests
     {
         [Test]
-        public void when_primary_config_factory_fails_then_the_fallback_config_factory_is_used()
+        public void when_primary_override_config_factory_fails_then_the_fallback_config_factory_is_used()
         {
             var fallbackCalled = false;
-            Func<ISpectatorConfiguration> failingConfigFactory = () => { throw new Exception(); };
-            Func<ISpectatorConfiguration> workingConfigFactory = () =>
+            Func<ISpectatorOverrideConfiguration> failingConfigFactory = () => { throw new Exception(); };
+            Func<ISpectatorOverrideConfiguration> workingConfigFactory = () =>
                                                                        {
                                                                            fallbackCalled = true;
-                                                                           return new Mock<ISpectatorConfiguration>().Object;
+                                                                           return new Mock<ISpectatorOverrideConfiguration>().Object;
                                                                        };
 
             Fallback.On(failingConfigFactory, workingConfigFactory);
@@ -25,14 +26,14 @@ namespace spectator.Tests.Configuration
         }
 
         [Test]
-        public void when_primary_config_factory_works_then_the_fallback_config_factory_is_not_used()
+        public void when_primary_override_config_factory_works_then_the_fallback_config_factory_is_not_used()
         {
             var fallbackCalled = false;
-            Func<ISpectatorConfiguration> workingConfigFactory = () => new Mock<ISpectatorConfiguration>().Object;
-            Func<ISpectatorConfiguration> fallbackConfigFactory = () =>
+            Func<ISpectatorOverrideConfiguration> workingConfigFactory = () => new Mock<ISpectatorOverrideConfiguration>().Object;
+            Func<ISpectatorOverrideConfiguration> fallbackConfigFactory = () =>
                                                                        {
                                                                            fallbackCalled = true;
-                                                                           return new Mock<ISpectatorConfiguration>().Object;
+                                                                           return new Mock<ISpectatorOverrideConfiguration>().Object;
                                                                        };
 
             Fallback.On(workingConfigFactory, fallbackConfigFactory);

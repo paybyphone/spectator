@@ -66,7 +66,6 @@
   <ItemGroup>
     <Compile Include="Configuration\CombinedSpectatorConfiguration.cs" />
     <Compile Include="Configuration\ConfigurationDifferenceSummary.cs" />
-    <Compile Include="Configuration\ConfigurationExtensions.cs" />
     <Compile Include="Configuration\ConfigurationResolver.cs" />
     <Compile Include="Configuration\Overrides\ConsulSpectatorOverrideConfiguration.cs" />
     <Compile Include="Configuration\EmptyOverrideConfiguration.cs" />

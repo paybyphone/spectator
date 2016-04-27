@@ -3,7 +3,7 @@ using System.Linq.Expressions;
 
 namespace spectator.Infrastructure
 {
-    public class Must
+    public static class Must
     {
         public static void NotBeNull(Expression<Func<object>> objectExpression)
         {
