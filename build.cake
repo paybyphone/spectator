@@ -98,7 +98,19 @@ Task("Light")
 
 //alias for building the msi
   Task("BuildMsi")
+     .IsDependentOn("Clean")
      .IsDependentOn("Light");
+
+Task("ChocoPack")
+  .IsDependentOn("BuildMsi")
+  .Does(()=>{
+         var chocolateyPackSettings = new ChocolateyPackSettings {
+                                     Version = EnvironmentVariable("BUILD_VERSION") ?? "1.0.0",
+                                     OutputDirectory = "output/installers"
+                                 };
+
+     ChocolateyPack("./installers/chocolatey/spectator/spectator.nuspec", chocolateyPackSettings);
+  });
 
 //////////////////////////////////////////////////////////////////////
 // TASK TARGETS
