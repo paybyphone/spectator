@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*" Name="Spectator" Language="1033" Version="$(env.BUILD_VERSION)" Manufacturer="PayByPhone" UpgradeCode="{5f56ab79-fa68-4d67-82a4-81b3cb2b82da}">
+	<Product Id="*" Name="Spectator" Language="1033" Version="$(env.BUILD_VERSION)" Manufacturer="PayByPhone Technologies Inc." UpgradeCode="{5f56ab79-fa68-4d67-82a4-81b3cb2b82da}">
 		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine"/>
 
 		<Media Id="1" Cabinet="product.cab" EmbedCab="yes"/>
