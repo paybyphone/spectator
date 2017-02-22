@@ -1,6 +1,6 @@
 ﻿$packageName= 'spectator'
 $toolsDir   = "$(Split-Path -Parent $MyInvocation.MyCommand.Definition)"
-$fileLocation = Join-Path $toolsDir 'spectator.msi'
+$fileLocation = Join-Path $toolsDir 'spectator_installer.msi'
 
 $packageArgs = @{
   packageName   = $packageName
