@@ -1,6 +1,6 @@
-﻿$packageName= 'Spectator'
+﻿$packageName= 'spectator'
 $toolsDir   = "$(Split-Path -Parent $MyInvocation.MyCommand.Definition)"
-$fileLocation = Join-Path $toolsDir 'Spectator.msi'
+$fileLocation = Join-Path $toolsDir 'spectator.msi'
 
 $packageArgs = @{
   packageName   = $packageName
@@ -8,7 +8,7 @@ $packageArgs = @{
   file          = $fileLocation
   silentArgs    = "/qn /norestart"
   validExitCodes= @(0, 3010, 1641)
-  softwareName  = 'Spectator*'
+  softwareName  = 'spectator*'
 }
 
 Install-ChocolateyInstallPackage @packageArgs

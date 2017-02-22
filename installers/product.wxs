@@ -1,23 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-	<Product Id="*"
-		Name="Spectator"
-		Language="1033"
-		Version="$(env.BUILD_VERSION)"
-		Manufacturer="PayByPhone"
-		UpgradeCode="{5f56ab79-fa68-4d67-82a4-81b3cb2b82da}">
-		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine" />
+	<Product Id="*" Name="Spectator" Language="1033" Version="$(env.BUILD_VERSION)" Manufacturer="PayByPhone" UpgradeCode="{5f56ab79-fa68-4d67-82a4-81b3cb2b82da}">
+		<Package InstallerVersion="200" Compressed="yes" InstallScope="perMachine"/>
 
-    <Media Id="1" Cabinet="product.cab" EmbedCab="yes" />
+		<Media Id="1" Cabinet="product.cab" EmbedCab="yes"/>
 
 		<!-- Allows our MSI to automatically uninstall any previously installed versions (makes it play nicer with puppet) -->
-		<Property Id="PREVIOUSVERSIONSINSTALLED" Secure="yes" />
+		<Property Id="PREVIOUSVERSIONSINSTALLED" Secure="yes"/>
 		<!-- Upgrade id has to match our upgrade code -->
 		<Upgrade Id="{5f56ab79-fa68-4d67-82a4-81b3cb2b82da}">
-			<UpgradeVersion
-					Minimum="0.0.0.1" Maximum="99.0.0.0"
-					Property="PREVIOUSVERSIONINSTALLED"
-					IncludeMinimum="yes" IncludeMaximum="no" />
+			<UpgradeVersion Minimum="0.0.0.1" Maximum="99.0.0.0" Property="PREVIOUSVERSIONINSTALLED" IncludeMinimum="yes" IncludeMaximum="no"/>
 		</Upgrade>
 		<!--
 				We need to be able to uninstall a newer version from an older version.
@@ -25,35 +17,33 @@
 				The 'd' means "reinstall if different". This ensures that, at the individual component level, rollbacks work correctly.
 				See http://msdn.microsoft.com/en-us/library/windows/desktop/aa371182(v=vs.85).aspx
 			-->
-		<Property Id="REINSTALLMODE" Value="dmus" />
+		<Property Id="REINSTALLMODE" Value="dmus"/>
 
-        <Feature Id="Spectator" Title="Spectator">
-            <ComponentGroupRef Id="Spectator_Files" />
-        </Feature>
+		<Feature Id="spectator" Title="spectator">
+			<ComponentGroupRef Id="spectator_files"/>
+		</Feature>
 	</Product>
 
+	<Fragment>
+		<Directory Id="TARGETDIR" Name="SourceDir">
+			<Directory Id="ProgramFilesFolder">
+				<Directory Id="PayByPhone" Name="PayByPhone">
+					<Directory Id="INSTALLFOLDER" Name="spectator"></Directory>
+				</Directory>
+			</Directory>
+		</Directory>
 
-    <Fragment>
-        <Directory Id="TARGETDIR" Name="SourceDir">
-            <Directory Id="ProgramFilesFolder">
-               <Directory Id="PayByPhone" Name ="PayByPhone">
-                    <Directory Id="INSTALLFOLDER" Name ="Spectator">
-                    </Directory>  
-                </Directory>
-            </Directory>
-        </Directory>
+		<CustomAction Id="RunTopShelfServiceInstall" Directory="INSTALLFOLDER" Execute="deferred" Return="check" Impersonate="no" ExeCommand="[INSTALLFOLDER]spectator.exe install"/>
 
-    <CustomAction Id="RunTopShelfServiceInstall" Directory="INSTALLFOLDER" Execute="deferred" Return="check" Impersonate="no" ExeCommand="[INSTALLFOLDER]spectator.exe install"/>
-    
-    <CustomAction Id="RunTopShelfServiceStop" Directory="INSTALLFOLDER" Execute="deferred" Return="check" Impersonate="no" ExeCommand="[INSTALLFOLDER]spectator.exe stop"/>
-    <CustomAction Id="RunTopShelfServiceUninstall" Directory="INSTALLFOLDER" Execute="deferred" Return="check" Impersonate="no" ExeCommand="[INSTALLFOLDER]spectator.exe uninstall"/>
+		<CustomAction Id="RunTopShelfServiceStop" Directory="INSTALLFOLDER" Execute="deferred" Return="check" Impersonate="no" ExeCommand="[INSTALLFOLDER]spectator.exe stop"/>
+		<CustomAction Id="RunTopShelfServiceUninstall" Directory="INSTALLFOLDER" Execute="deferred" Return="check" Impersonate="no" ExeCommand="[INSTALLFOLDER]spectator.exe uninstall"/>
 
-    <InstallExecuteSequence>
-      <RemoveExistingProducts After="RunTopShelfServiceUninstall" /> 
-      <Custom Action="RunTopShelfServiceInstall" After="InstallFiles">NOT Installed</Custom>
-      <Custom Action="RunTopShelfServiceStop" After='InstallInitialize'>(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
-      <Custom Action="RunTopShelfServiceUninstall" After='RunTopShelfServiceStop'>(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
-    </InstallExecuteSequence>
+		<InstallExecuteSequence>
+			<RemoveExistingProducts After="RunTopShelfServiceUninstall"/>
+			<Custom Action="RunTopShelfServiceInstall" After="InstallFiles">NOT Installed</Custom>
+			<Custom Action="RunTopShelfServiceStop" After='InstallInitialize'>(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
+			<Custom Action="RunTopShelfServiceUninstall" After='RunTopShelfServiceStop'>(NOT UPGRADINGPRODUCTCODE) AND (REMOVE="ALL")</Custom>
+		</InstallExecuteSequence>
 
-    </Fragment>
+	</Fragment>
 </Wix>
