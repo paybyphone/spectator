@@ -10,7 +10,7 @@
     <projectUrl>https://github.com/paybyphone/spectator</projectUrl>
     <licenseUrl>https://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
-    <projectSourceUrl>Software Source Location - is the software FOSS somewhere? Link to it with this</projectSourceUrl>
+    <projectSourceUrl>https://github.com/paybyphone/spectator</projectSourceUrl>
     <tags>spectator wmi instrumentation performance counters statsd metrics</tags>
     <summary>Monitor performance counter and WMI metrics and send them to a statsd compatible server</summary>
     <description>Monitor performance counter and WMI metrics and send them to a statsd compatible server</description>
