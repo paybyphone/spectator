@@ -10,10 +10,12 @@
     <projectUrl>https://github.com/paybyphone/spectator</projectUrl>
     <licenseUrl>https://www.apache.org/licenses/LICENSE-2.0</licenseUrl>
     <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <iconUrl>https://cdn.rawgit.com/paybyphone/spectator/v$version$/spectator_logo.png</iconUrl>
     <projectSourceUrl>https://github.com/paybyphone/spectator</projectSourceUrl>
-    <tags>spectator wmi instrumentation performance counters statsd metrics</tags>
+    <tags>spectator wmi instrumentation performance counters statsd metrics admin</tags>
     <summary>Monitor performance counter and WMI metrics and send them to a statsd compatible server</summary>
     <description>Monitor performance counter and WMI metrics and send them to a statsd compatible server</description>
+    <releaseNotes>https://cdn.rawgit.com/paybyphone/spectator/v$version$/CHANGELOG.md</releaseNotes>
   </metadata>
   <files>
     <file src="tools\**" target="tools" />
