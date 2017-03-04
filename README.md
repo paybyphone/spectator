@@ -1,6 +1,8 @@
 Spectator
 =========
 
+[![Build status](https://ci.appveyor.com/api/projects/status/6knqfafq78yhd8js?svg=true)](https://ci.appveyor.com/project/plmw/spectator)
+
 Overview																			
 --------
 
